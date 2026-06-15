@@ -3,229 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plataforma AgroEcoHub Ultra - Sustentabilidade e Futuro</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <title>AgroEcoHub Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body data-theme="light">
-    <div id="particle-canvas"></div>
+<body>
+    <canvas id="particle-canvas"></canvas>
 
     <nav class="glass-nav">
         <div class="nav-container">
-            <div class="logo">🌿 <span>AgroEco</span>Hub Pro</div>
+            <div class="logo">AgroEco<span>Hub</span></div>
             <div class="nav-links">
                 <a href="#conhecimento" class="link-item">Conhecimento</a>
-                <a href="#desafios" class="link-item">Desafios Futuros</a>
-                <a href="#arena" class="link-item">Arena Gamer</a>
-                <a href="#mural-ancora" class="link-item">Mural Coletivo</a>
-                <button id="theme-toggle" onclick="toggleTheme()">✨ Alternar Estilo</button>
+                <a href="#arena" class="link-item">Arena</a>
+                <a href="#mural" class="link-item">Mural</a>
             </div>
+            <button id="theme-toggle" onclick="toggleTheme()">☀️ Modo</button>
         </div>
     </nav>
 
     <header class="main-hero">
         <div class="hero-wrapper">
-            <div class="hero-tag">CONEXÃO TERRA & TECNOLOGIA AVANÇADA</div>
-            <h1>O Horizonte da <br><span class="text-gradient">Agricultura 5.0</span></h1>
-            <p>Em 2050, a população mundial atingirá a marca de 10 bilhões de pessoas. A grande missão da nossa geração é aumentar a produção de alimentos sem expandir o desmatamento, utilizando a ciência para regenerar o planeta.</p>
+            <div class="hero-tag">CONEXÃO SUSTENTÁVEL</div>
+            <h1>O Futuro da Agricultura é <span class="text-gradient">Tecnológico</span></h1>
+            <p>Explore práticas ecoeficientes, teste as suas habilidades em simuladores interativos e faça parte da nova era do agronegócio sustentável.</p>
             <div class="hero-btns">
-                <a href="#arena" class="btn-primary">Jogar na Arena Pro</a>
-                <a href="#conhecimento" class="btn-outline">Explorar Conteúdo</a>
+                <a href="#arena" class="btn-primary">Jogar Agora</a>
+                <a href="#conhecimento" class="btn-outline">Aprender Mais</a>
             </div>
         </div>
     </header>
 
-    <main class="content-body">
-        
-        <section id="conhecimento" class="knowledge-hub">
-            <div class="section-header-block">
-                <span class="sub-title">CIÊNCIA APLICADA NO CAMPO</span>
-                <h2 class="section-heading">📚 O Caminho para a Sustentabilidade</h2>
-                <p class="section-desc">Entenda os pilares tecnológicos que estão transformando as propriedades rurais em ecossistemas inteligentes, altamente produtivos e totalmente integrados à preservação ambiental.</p>
+    <section id="conhecimento" class="section-header-block">
+        <span class="sub-title">APRENDIZADO ATIVO</span>
+        <h2 class="section-heading">Pilares da Sustentabilidade</h2>
+        <p class="section-desc">Conheça as tecnologias que estão transformando o manejo de recursos naturais no campo.</p>
+    </section>
+
+    <div class="info-grid-modern">
+        <div class="glass-card">
+            <div class="card-icon">💧</div>
+            <h3>Gotejamento Direto</h3>
+            <p>Sistemas automatizados reduzem o desperdício de água em até 60%, entregando a quantidade exata diretamente na raiz da planta.</p>
+        </div>
+        <div class="glass-card">
+            <div class="card-icon">🛸</div>
+            <h3>Drones de Precisão</h3>
+            <p>Mapeamento térmico que identifica pragas e falhas na plantação antes que se espalhem, evitando o uso excessivo de defensivos.</p>
+        </div>
+        <div class="glass-card">
+            <div class="card-icon">☀️</div>
+            <h3>Energia Limpa</h3>
+            <p>Fazendas solares alimentam os sistemas de irrigação e sensores conectados, zerando a pegada de carbono da produção.</p>
+        </div>
+    </div>
+
+    <section id="arena" class="section-header-block">
+        <span class="sub-title">SIMULADORES</span>
+        <h2 class="section-heading">Arena de Jogos Hub</h2>
+        <p class="section-desc">Gerencie recursos, tome decisões rápidas e pontue nos minijogos agroecológicos.</p>
+    </section>
+
+    <main class="games-layout">
+        <div class="game-card">
+            <div class="game-header"><span>01</span> Quiz da Sustentabilidade</div>
+            <div class="game-stats"><span>Pontos: <span id="quiz-score">0</span></span></div>
+            <p class="game-hint" id="quiz-question">Carregando pergunta...</p>
+            <div id="quiz-options" class="options-grid"></div>
+        </div>
+
+        <div class="game-card">
+            <div class="game-header"><span>02</span> Coleta com Drone</div>
+            <div class="game-stats"><span>Pontos: <span id="drone-score">0</span></span></div>
+            <div class="game-screen" id="drone-screen">
+                <div id="player-drone">🛸</div>
             </div>
-            
-            <div class="info-grid-modern">
-                <div class="glass-card info-item" style="--border-color: #00b894;">
-                    <div class="card-icon">🛰️</div>
-                    <h3>Monitoramento Espacial</h3>
-                    <p>Satélites de última geração com sensores hiperespectrais conseguem ler as taxas de fotossíntese das plantas diretamente do espaço. Isso permite que o produtor identifique focos de estresse hídrico ou deficiências de nitrogênio antes mesmo de surgirem manchas visíveis nas folhas.</p>
-                    <span class="card-footer">Tecnologia Satelital</span>
-                </div>
-
-                <div class="glass-card info-item" style="--border-color: #fdcb6e;">
-                    <div class="card-icon">🦠</div>
-                    <h3>Microbiologia do Solo</h3>
-                    <p>A preservação do solo no futuro foca na vida microscópica. Bioestimulantes à base de fungos micorrízicos e bactérias do gênero Bradyrhizobium ativam a Fixação Biológica de Nitrogênio (FBN). Esse processo capta o nutriente diretamente do ar, reduzindo drasticamente os adubos químicos.</p>
-                    <span class="card-footer">Saúde do Solo</span>
-                </div>
-
-                <div class="glass-card info-item" style="--border-color: #0984e3;">
-                    <div class="card-icon">🧬</div>
-                    <h3>Biotecnologia CRISPR</h3>
-                    <p>A edição genética de alta precisão permite o desenvolvimento de sementes tolerantes ao estresse térmico e a secas prolongadas. Ao contrário dos transgênicos tradicionais, o método CRISPR acelera melhoramentos que a própria natureza levaria séculos para alcançar, sem introduzir DNA externo.</p>
-                    <span class="card-footer">Ciência Genética</span>
-                </div>
-
-                <div class="glass-card info-item" style="--border-color: #a29bfe;">
-                    <div class="card-icon">🦌</div>
-                    <h3>Refúgios e Corredores</h3>
-                    <p>Uma fazenda moderna mantém até 30% de sua área preservada em Reservas Legais (RL) e Áreas de Preservação Permanente (APP). Conectar essas matas cria rotas seguras para predadores naturais, como aves de rapina e felinos, que controlam pragas sem o uso de defensivos químicos.</p>
-                    <span class="card-footer">Equilíbrio Ecológico</span>
-                </div>
+            <div class="game-controls">
+                <button class="ctrl-btn" onclick="moveDrone('left')">⬅️ Esquerda</button>
+                <button class="ctrl-btn" onclick="moveDrone('right')">Direita ➡️</button>
             </div>
-        </section>
+        </div>
 
-        <section id="desafios" class="challenges-section">
-            <div class="challenge-container">
-                <div class="challenge-text">
-                    <h2>🌱 Como vamos preservar o solo no futuro?</h2>
-                    <p>O solo não é apenas terra; é um organismo vivo que armazena bilhões de toneladas de carbono. As técnicas do futuro focam no <strong>Plantio Direto Global</strong>, onde a terra nunca fica descoberta ou exposta ao sol escaldante, evitando a erosão hídrica e eólica.</p>
-                    <p>Além disso, a <strong>Integração Lavoura-Pecuária-Floresta (ILPF)</strong> alterna grãos, gado e árvores na mesma fazenda. As árvores dão sombra ao gado, as fezes do gado adubam o solo e as raízes dos grãos estruturam a terra, gerando uma pegada de carbono totalmente neutra ou negativa.</p>
-                </div>
-                <div class="challenge-metrics">
-                    <div class="metric-box"><h4>-60%</h4><p>Uso de Venenos</p></div>
-                    <div class="metric-box"><h4>+40%</h4><p>Retenção de Água</p></div>
-                </div>
+        <div class="game-card">
+            <div class="game-header"><span>03</span> Memória Ecológica</div>
+            <div class="game-stats"><span>Pares: <span id="memo-score">0</span></span></div>
+            <div class="memory-container" id="memory-board"></div>
+            <button class="btn-play" style="margin-top:15px;" onclick="initMemoryGame()">Reiniciar Jogo</button>
+        </div>
+
+        <div class="game-card">
+            <div class="game-header"><span>04</span> Irrigador Inteligente</div>
+            <div class="game-stats">
+                <span>Pontos: <span id="irr-score">0</span></span>
+                <span id="pump-status">Status: Normal</span>
             </div>
-
-            <div class="curio-interactive">
-                <div class="curio-content">
-                    <h3>💡 IA Informativa: Fatos Rápidos</h3>
-                    <p id="dynamic-fact">A agricultura sustentável é a maior aliada no combate ao aquecimento global através do sequestro ativo de carbono nas raízes!</p>
-                    <button class="btn-curio" onclick="updateFact()">Gerar Novo Dado 🔄</button>
-                </div>
-                <div class="curio-visual">✨</div>
+            <p class="game-hint">Mantenha a umidade do solo entre 65% e 85% controlando a válvula.</p>
+            <div class="water-bar">
+                <div id="water-fill"></div>
             </div>
-        </section>
+            <div style="text-align: center; font-weight: 800; margin-bottom: 10px;" id="moisture-text">50%</div>
+            <button id="pump-toggle" class="btn-pump" onclick="togglePump()">LIGAR VÁLVULA 💦</button>
+        </div>
 
-        <section id="arena" class="game-hub">
-            <div class="section-header-block">
-                <span class="sub-title">APRENDA JOGANDO</span>
-                <h2 class="section-heading">🎮 Arena Interativa Pro</h2>
-                <p class="hub-subtitle">Supere as metas de sustentabilidade, controle robôs e gerencie recursos em tempo real através dos nossos 6 minigames integrados.</p>
-            </div>
-
-            <div class="games-layout">
-                
-                <div class="game-card quiz-pro">
-                    <div class="game-header"><span>01</span> QUIZ REGENERATIVO</div>
-                    <div class="game-stats">
-                        <span id="quiz-p">Questão: 1/5</span>
-                        <span id="quiz-s" class="high-score">Score: 0</span>
-                    </div>
-                    <h4 id="question-box">Carregando pergunta...</h4>
-                    <div id="options-box" class="options-grid"></div>
-                    <div id="quiz-msg" class="feedback-box"></div>
+        <div class="game-card">
+            <div class="game-header"><span>05</span> Simulador de Ecossistema</div>
+            <div class="game-stats"><span>Equilíbrio: <span id="eco-score">50%</span></span></div>
+            <div class="sliders-area">
+                <div class="slider-box">
+                    <label>Árvores: <span id="val-trees">5</span></label>
+                    <input type="range" id="slide-trees" min="1" max="10" value="5" oninput="updateEco()">
                 </div>
-
-                <div class="game-card collector-pro">
-                    <div class="game-header"><span>02</span> COLHEITA DE PRECISÃO</div>
-                    <div class="game-stats">
-                        <span id="col-s">Pontos: 0</span>
-                        <span id="col-t">Tempo: 30s</span>
-                    </div>
-                    <div class="game-screen" id="collector-arena">
-                        <div id="player-drone">🛸</div>
-                        <div id="start-overlay" class="game-overlay">
-                            <button class="btn-play" onclick="initCollector()">Iniciar Operação do Drone</button>
-                        </div>
-                    </div>
-                    <div class="game-controls">
-                        <button class="ctrl-btn" onmousedown="moveLeft()" onmouseup="stopMove()">Mover para Esquerda ◀</button>
-                        <button class="ctrl-btn" onmousedown="moveRight()" onmouseup="stopMove()">▶ Mover para Direita</button>
-                    </div>
-                </div>
-
-                <div class="game-card memory-pro">
-                    <div class="game-header"><span>03</span> MEMÓRIA DA TERRA</div>
-                    <p class="game-hint">Combine os pares correspondentes de práticas agrícolas benéficas ao ecossistema:</p>
-                    <div class="memory-container" id="memory-board"></div>
-                    <button class="btn-refresh" onclick="resetMemory()">Embaralhar e Reiniciar 🔁</button>
-                </div>
-
-                <div class="game-card water-pro">
-                    <div class="game-header"><span>04</span> MANEJO HÍDRICO IoT</div>
-                    <div class="water-stats">
-                        <div class="circle-gauge">
-                            <svg viewBox="0 0 36 36" class="circular-chart blue">
-                                <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                                <path id="water-fill" class="circle" stroke-dasharray="50, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                                <text x="18" y="20.35" class="percentage" id="moisture-text">50%</text>
-                            </svg>
-                        </div>
-                        <div class="water-info">
-                            <p>Status do Equipamento: <strong id="pump-status">DESLIGADA</strong></p>
-                            <p>Pontos de Eficiência: <span id="irr-score">0</span> pts</p>
-                        </div>
-                    </div>
-                    <button id="pump-toggle" class="btn-pump" onclick="togglePump()">LIGAR MOTOBOMBA 💧</button>
-                </div>
-
-                <div class="game-card balance-pro">
-                    <div class="game-header"><span>05</span> GESTÃO DE BIOMAS</div>
-                    <div class="sliders-area">
-                        <div class="slider-box">
-                            <label>Investimento Tecnológico: <span id="t-label">50%</span></label>
-                            <input type="range" id="t-slider" value="50" oninput="runSim()">
-                        </div>
-                        <div class="slider-box">
-                            <label>Preservação Florestal: <span id="f-label">50%</span></label>
-                            <input type="range" id="f-slider" value="50" oninput="runSim()">
-                        </div>
-                    </div>
-                    <div class="sim-result">
-                        <div class="health-bar"><div id="health-fill"></div></div>
-                        <p id="health-msg">Calculando estabilidade biológica da fazenda...</p>
-                    </div>
-                </div>
-
-                <div class="game-card carbon-pro">
-                    <div class="game-header"><span>06</span> SEQUESTRO DE CO2</div>
-                    <p class="game-hint">As mudas de árvores nativas estão crescendo rápido! Clique nelas para fixar gases poluentes e limpar a atmosfera.</p>
-                    <div id="carbon-arena" class="click-area">
-                        <div id="carbon-counter">0kg CO2 Capturados</div>
-                    </div>
-                    <button class="btn-play" id="btn-carbon" onclick="startCarbonGame()">Iniciar Ciclo de Plantio Florestal</button>
+                <div class="slider-box">
+                    <label>Defensivos: <span id="val-pest">5</span></label>
+                    <input type="range" id="slide-pest" min="1" max="10" value="5" oninput="updateEco()">
                 </div>
             </div>
-        </section>
+            <div class="health-bar"><div id="health-fill"></div></div>
+            <div id="health-msg">Estável</div>
+        </div>
 
-        <section id="mural-ancora" class="mural-section">
-            <div class="section-header-block">
-                <span class="sub-title">COMPARTILHE SUAS IDEIAS</span>
-                <h2 class="section-heading">📌 Mural da Nova Geração</h2>
-                <p class="section-desc">Deixe sua contribuição para o mundo! Qual ideia ou projeto tecnológico você acredita que ajudará a salvar os solos e rios do nosso país nos próximos anos?</p>
-            </div>
-            
-            <div class="mural-wrapper">
-                <div class="mural-form">
-                    <p>Digite sua sugestão ecológica abaixo:</p>
-                    <input type="text" id="mural-input" placeholder="Ex: Utilizar sensores de calor para evitar incêndios nas matas...">
-                    <button onclick="addPostIt()" class="btn-post">Fixar Recado no Mural 📍</button>
-                </div>
-                <div id="mural-canvas" class="sticky-grid">
-                    <div class="note yellow">Utilizar frotas de drones autônomos para o reflorestamento em massa de áreas degradadas! 🛸</div>
-                    <div class="note blue">Proteger as nascentes dos rios com cercas vivas e monitoramento por imagens de satélite. 🌊</div>
-                </div>
-            </div>
-        </section>
+        <div class="game-card">
+            <div class="game-header"><span>06</span> Carbon Clicker</div>
+            <div class="game-stats"><span>Capturado: <span id="carbon-val">0</span> kg</span></div>
+            <p class="game-hint">Clique rápido nas árvores que surgem para reflorestar o mapa!</p>
+            <div class="click-area" id="click-zone"></div>
+        </div>
     </main>
 
+    <section id="mural" class="mural-section">
+        <div class="mural-wrapper">
+            <h2>Mural da Comunidade</h2>
+            <p style="margin-bottom: 20px; color: var(--text-muted);">Deixe a sua ideia ou conselho sustentável para o futuro do campo.</p>
+            <div class="mural-form">
+                <input type="text" id="mural-input" placeholder="Escreva a sua mensagem ecológica aqui...">
+                <button class="btn-post" onclick="addNote()">Fixar Recado 📌</button>
+            </div>
+            <div class="sticky-grid" id="mural-grid"></div>
+        </div>
+    </section>
+
     <footer class="main-footer">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <h3>AgroEcoHub Pro</h3>
-                <p>Unindo ciência, educação ambiental e gamificação digital para capacitar os líderes do amanhã a protegerem as riquezas naturais da nossa pátria.</p>
-            </div>
-            <div class="footer-stats">
-                <div class="stat"><span>95%</span> Menos Desperdício</div>
-                <div class="stat"><span>100%</span> Foco Sustentável</div>
-                <div class="stat"><span>2026</span> Ano do Projeto</div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2026 AgroEcoHub Pro — Trabalho Desenvolvido para o Concurso Agrinho. Todos os direitos reservados à preservação do ecossistema.</p>
-        </div>
+        <p><strong>AgroEcoHub Pro</strong> - Tecnologia Aplicada ao Campo</p>
+        <p class="footer-bottom">&copy; 2026 - Projeto Desenvolvido para o Concurso Agrinho</p>
     </footer>
 
     <script src="script.js"></script>
