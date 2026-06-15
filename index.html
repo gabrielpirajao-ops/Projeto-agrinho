@@ -3,178 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plataforma AgroEco Sustentável</title>
+    <title>Plataforma AgroEcoHub Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Pequenos ajustes extras de cores e interatividade */
-        .memory-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px; }
-        .memory-card { height: 60px; background: var(--primary); color: var(--primary); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; font-weight: bold; transition: var(--transition); user-select: none; }
-        .memory-card.flipped { background: var(--accent-light); color: #000; }
-        .memory-card.matched { background: var(--success); color: white; cursor: default; }
-        .fact-box { background: linear-gradient(135deg, var(--accent-light), #fff); padding: 20px; border-radius: var(--radius-md); border-left: 5px solid var(--accent); margin-top: 15px; font-weight: 500; min-height: 80px; display: flex; align-items: center; }
-        .water-btn { width: 100%; padding: 15px; border-radius: var(--radius-md); font-weight: bold; font-size: 1.1rem; border: none; cursor: pointer; color: white; transition: var(--transition); }
-        .water-off { background: var(--danger); }
-        .water-on { background: var(--success); animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { opacity: 0.8; } 50% { opacity: 1; } 100% { opacity: 0.8; } }
-    </style>
 </head>
 <body>
-    <div id="leaves-container"></div>
-    <nav>
-        <div class="nav-container">
-            <div class="logo">🌿 AgroEcoHub</div>
-            <ul class="nav-menu">
-                <li><a href="#jogos" class="nav-link">Jogos</a></li>
-                <li><a href="#futuro" class="nav-link">O Futuro</a></li>
-                <li><a href="#simulador" class="nav-link">Simulador</a></li>
-                <li><button class="btn btn-accent" onclick="toggleMode()">Tema</button></li>
-            </ul>
+    <div id="particles"></div>
+    
+    <nav class="navbar">
+        <span class="logo">🌿 AgroEcoHub Pro</span>
+        <div class="nav-right">
+            <a href="#info" class="nav-item">Saiba Mais</a>
+            <a href="#games" class="nav-item">Minigames</a>
+            <button class="btn-theme" onclick="toggleMode()">✨ Mudar Tema</button>
         </div>
     </nav>
+
     <header class="hero">
-        <div class="container">
-            <h1>O Futuro da Agricultura<br>Começa na Sustentabilidade</h1>
-            <p>Uma plataforma interativa viva com soluções ecológicas, inteligência artificial no campo e proteção da biodiversidade.</p>
-            <a href="#jogos" class="btn">Abrir Painel Interativo ↓</a>
+        <div class="hero-content">
+            <span class="badge">🚀 AGROTECNOLOGIA & PRESERVAÇÃO</span>
+            <h1>O Futuro do Campo é Sustentável</h1>
+            <p>Descubra como a inteligência artificial, drones e a proteção da biodiversidade estão revolucionando a produção de alimentos no mundo.</p>
+            <a href="#games" class="btn btn-main">Ir para os Jogos ↓</a>
         </div>
     </header>
+
     <main class="container">
-        
-        <h2 style="margin-bottom: 24px;" id="futuro">🚀 O Futuro do Agro & Preservação</h2>
-        <div class="grid">
-            <div class="card" style="border-top: 5px solid #2bc48a;">
-                <div class="card-title"><span>🤖</span> Tecnologia e Campo</div>
-                <p style="color: var(--text-muted); font-size: 1.05rem;">A agricultura do futuro não usa mais recursos às cegas. Com o apoio de <strong>Inteligência Artificial, drones e sensores IoT</strong>, os produtores conseguem saber a quantidade exata de água e nutrientes que cada planta precisa. Isso reduz o desperdício a quase zero e protege o lençol freático contra contaminações.</p>
-            </div>
-            <div class="card" style="border-top: 5px solid #ffbc00;">
-                <div class="card-title"><span>🦊</span> Preservação da Fauna</div>
-                <p style="color: var(--text-muted); font-size: 1.05rem;">Manter a mata nativa de pé ao redor das plantações cria os chamados <strong>corredores ecológicos</strong>. Eles permitem que animais silvestres transitem em segurança e ajudam a manter polinizadores naturais (como as abelhas) por perto. Sem as abelhas, mais de 70% das culturas agrícolas do mundo teriam problemas de produção!</p>
-            </div>
-        </div>
-
-        <div class="card" style="margin-bottom: 48px; background: linear-gradient(to right, var(--surface), var(--accent-light));">
-            <div class="card-title"><span>💡</span> Descubra o Agro: Curiosidades Dinâmicas</div>
-            <p>Clique no botão abaixo para gerar um fato surpreendente sobre a nossa agricultura ecológica:</p>
-            <div class="fact-box" id="fact-display">Clique no botão para carregar a primeira curiosidade!</div>
-            <button class="btn btn-accent" style="margin-top: 15px;" onclick="generateFact()">Próxima Curiosidade 🔄</button>
-        </div>
-
-        <h2 style="margin-bottom: 24px;" id="jogos">🎮 Central de Jogos Ampliada</h2>
-        <div class="grid">
-            <div class="card">
-                <div class="card-title"><span>📝</span> Quiz do Produtor Consciente</div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 16px; font-weight: 700;">
-                    <span id="quiz-progress" style="color: var(--primary);">Questão 1/3</span>
-                    <span style="color: var(--success);">Pontos: <span id="quiz-points">0</span></span>
+        <section id="info" class="info-section">
+            <h2 class="section-title">💡 Conhecimento: O Novo Agro</h2>
+            <div class="info-grid">
+                <div class="info-card tech">
+                    <div class="icon">🤖</div>
+                    <h3>Drones e IA no Campo</h3>
+                    <p>A agricultura de precisão utiliza drones equipados com câmeras térmicas e algoritmos de Inteligência Artificial. Eles sobrevoam as plantações e detectam pragas ou falta de nutrientes em folhas específicas antes mesmo do olho humano notar. Isso reduz o uso de defensivos químicos em até 60%!</p>
                 </div>
-                <h4 id="quiz-question" style="margin-bottom: 20px;">Carregando...</h4>
-                <div id="quiz-options-grid"></div>
-                <div id="quiz-alert-box" class="quiz-feedback"></div>
+                <div class="info-card fauna">
+                    <div class="icon">🦊</div>
+                    <h3>Preservação e Fauna</h3>
+                    <p>Manter reservas nativas e criar "corredores ecológicos" conecta fragmentos de florestas. Isso permite que animais transitem em segurança e traz polinizadores naturais, como as abelhas. Sem as abelhas, mais de 70% das culturas agrícolas teriam quedas drásticas de produção.</p>
+                </div>
+                <div class="info-card agua">
+                    <div class="icon">💧</div>
+                    <h3>Água Inteligente (IoT)</h3>
+                    <p>Sensores enterrados no solo medem a umidade e a condutividade da terra em tempo real. Esses dados são enviados via internet para computadores centrais que ativam a irrigação apenas na quantidade exata que a planta precisa, economizando bilhões de litros de água doce.</p>
+                </div>
             </div>
 
-            <div class="card">
-                <div class="card-title"><span>🌾</span> Coletor AgroEcológico</div>
-                <div style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 8px;">
-                    <span>Placar: <span id="collector-score">0</span></span>
-                    <span>Tempo: <span id="collector-timer">30</span>s</span>
+            <div class="fact-container">
+                <h3>⚡ Você Sabia? (Fatos Rápidos)</h3>
+                <p id="fact-box">Clique no botão ao lado para descobrir um fato incrível sobre o ecossistema do agro moderno.</p>
+                <button class="btn btn-accent" onclick="newFact()">Gerar Fato Aleatório 🔄</button>
+            </div>
+        </section>
+
+        <section id="games" class="games-section">
+            <h2 class="section-title">🎮 Arena Interativa (5 Minigames Completos)</h2>
+            
+            <div class="grid">
+                <div class="card game-card c-quiz">
+                    <div class="card-tag">MINIGAME 1</div>
+                    <h3>📝 Quiz do Produtor Consciente</h3>
+                    <div class="status-row"><span id="qz-prog">Questão: 1/3</span><span id="qz-pts" class="pts">0 pts</span></div>
+                    <p id="qz-quest" class="question-text">Carregando pergunta...</p>
+                    <div id="qz-opts" class="options-container"></div>
+                    <div id="qz-feedback" class="game-feedback"></div>
                 </div>
-                <div class="game-viewport" id="game-arena">
-                    <div class="game-basket" id="basket-element"></div>
-                    <div class="game-overlay" id="game-menu">
-                        <h3>Desafio da Colheita</h3>
-                        <p>Colete (🌱) e evite (⚠️)</p>
-                        <button class="btn btn-accent" onclick="initCollectorGame()">Jogar</button>
+
+                <div class="card game-card c-coletor">
+                    <div class="card-tag">MINIGAME 2</div>
+                    <h3>🌾 Coletor AgroEcológico</h3>
+                    <div class="status-row"><span id="col-score" class="pts">0 pts</span><span id="col-time">30s</span></div>
+                    <div class="arena" id="arena">
+                        <div id="basket">🎒</div>
+                        <div id="game-over-screen" class="overlay">
+                            <button class="btn btn-play" onclick="startCollector()">Iniciar Colheita 🕹️</button>
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <button class="btn-ctrl" onclick="move(-45)">◀ Mover Esquerda</button>
+                        <button class="btn-ctrl" onclick="move(45)">Mover Direita ▶</button>
                     </div>
                 </div>
-                <div style="display: flex; gap: 12px;">
-                    <button class="btn" style="width: 50%; justify-content: center;" onclick="shiftBasket(-35)">◀ Esq</button>
-                    <button class="btn" style="width: 50%; justify-content: center;" onclick="shiftBasket(35)">Dir ▶</button>
-                </div>
-            </div>
 
-            <div class="card">
-                <div class="card-title"><span>🧠</span> Memória Sustentável</div>
-                <p style="font-size: 0.9rem; color: var(--text-muted);">Encontre os pares corretos de símbolos ecológicos!</p>
-                <div class="memory-grid" id="memory-board"></div>
-                <button class="btn" style="margin-top: 15px; width: 100%; justify-content: center;" onclick="startMemoryGame()">Reiniciar Jogo 🔁</button>
-            </div>
+                <div class="card game-card c-memoria">
+                    <div class="card-tag">MINIGAME 3</div>
+                    <h3>🧠 Memória Sustentável</h3>
+                    <p class="game-desc">Encontre e combine os pares de símbolos ecológicos e tecnológicos do campo:</p>
+                    <div class="memo-grid" id="memo-board"></div>
+                    <button class="btn btn-reset" onclick="initMemo()">Reiniciar Tabuleiro 🔁</button>
+                </div>
 
-            <div class="card">
-                <div class="card-title"><span>💧</span> Irrigação Inteligente</div>
-                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">A umidade ideal é <strong>60% a 70%</strong>. Desligue a água se passar disso!</p>
-                <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 15px;">
-                    <span>Umidade: <span id="moisture-val">50%</span></span>
-                    <span>Status: <span id="irrigation-status" style="color: var(--danger);">Desligado</span></span>
+                <div class="card game-card c-irrigador">
+                    <div class="card-tag">MINIGAME 4</div>
+                    <h3>💧 Simulador de Umidade</h3>
+                    <p class="game-desc">O solo perde água sozinho! Ative a irrigação e tente cravar a umidade na faixa perfeita de <b>60% a 80%</b> para pontuar.</p>
+                    <div class="status-row"><span>Solo: <span id="moist-val">50%</span></span><span>Pontos: <span id="irr-pts" class="pts">0</span></span></div>
+                    <button id="btn-water" class="btn-water" onclick="toggleWater()">Ligar Água 💦</button>
+                    <div id="irri-msg" class="feedback-msg">Solo instável...</div>
                 </div>
-                <button id="irrigate-btn" class="water-btn water-off" onclick="toggleIrrigation()">LIGAR IRRIGAÇÃO 💦</button>
-                <p id="irrigation-feedback" style="margin-top: 10px; font-weight: bold; text-align: center; color: var(--success);"></p>
-            </div>
-        </div>
 
-        <h2 style="margin-bottom: 24px;" id="simulador">📊 Simulação e Análise</h2>
-        <div class="grid">
-            <div class="card">
-                <div class="card-title"><span>🚜</span> Simulador de Campo</div>
-                <div class="range-container">
-                    <div class="range-label"><span>Tecnologia (IA e Drones):</span><span id="lbl-tech">50%</span></div>
-                    <input type="range" id="range-tech" class="custom-range" min="0" max="100" value="50" oninput="runSim()">
-                </div>
-                <div class="range-container">
-                    <div class="range-label"><span>Mata Nativa e Reserva:</span><span id="lbl-bio">20%</span></div>
-                    <input type="range" id="range-bio" class="custom-range" min="20" max="80" value="20" oninput="runSim()">
-                </div>
-                <div style="margin-top: 24px;">
-                    <div style="display: flex; justify-content: space-between; font-weight: 700;">
-                        <span>SAÚDE DA FAZENDA:</span><span id="gauge-value">50%</span>
+                <div class="card game-card c-equilibrio">
+                    <div class="card-tag">MINIGAME 5</div>
+                    <h3>⚖️ Gerenciador de Ecossistema</h3>
+                    <p class="game-desc">Ajuste os investimentos. Muita tecnologia sem árvores cria pragas. Muitas árvores sem tecnologia reduz a comida!</p>
+                    <div class="slider-group">
+                        <label>Tecnologia Industrial: <span id="val-t">50%</span></label>
+                        <input type="range" id="slide-t" min="0" max="100" value="50" oninput="updateEco()">
                     </div>
-                    <div class="gauge-bar"><div class="gauge-fill" id="gauge-bar-fill"></div></div>
-                </div>
-                <p id="sim-status-message" style="margin-top: 16px; font-weight: 500; color: var(--primary);"></p>
-            </div>
-            <div class="card">
-                <div class="card-title"><span>🏅</span> Conquistas</div>
-                <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 10px;">
-                    <div id="badge-1" style="opacity: 0.2; font-weight: 700; transition: 0.3s;">⚡ Produtor High-Tech</div>
-                    <div id="badge-2" style="opacity: 0.2; font-weight: 700; transition: 0.3s;">🌲 Protetor Ecológico</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="grid">
-            <div class="card">
-                <div class="card-title"><span>💡</span> Biblioteca</div>
-                <div class="tabs-header">
-                    <button class="tab-btn active" onclick="switchTab(event, 'tab-ilpf')">ILPF</button>
-                    <button class="tab-btn" onclick="switchTab(event, 'tab-bio')">Bioinsumos</button>
-                </div>
-                <div id="tab-ilpf" class="tab-content active"><h5>Sistemas ILPF</h5><p style="color: var(--text-muted);">Integração lavoura, pecuária e floresta em uma mesma área urbana/rural.</p></div>
-                <div id="tab-bio" class="tab-content"><h5>Defensivos Verdes</h5><p style="color: var(--text-muted);">Uso de inimigos naturais para controle biológico de pragas.</p></div>
-            </div>
-            <div class="card">
-                <div class="card-title"><span>🧮</span> Pegada de CO2</div>
-                <input type="number" id="inp-diesel" class="mural-input" value="200" style="margin-bottom: 8px;" placeholder="Diesel (L)">
-                <input type="number" id="inp-fert" class="mural-input" value="100" style="margin-bottom: 12px;" placeholder="Adubo (Kg)">
-                <button class="btn" style="width: 100%; justify-content: center;" onclick="evalCarbon()">Calcular</button>
-                <div class="calc-output-box" id="calc-panel">
-                    <div class="indicator-dot" id="calc-indicator"></div><span>Emissão: <span id="calc-score-val">0</span> kg/CO2</span>
+                    <div class="slider-group">
+                        <label>Reserva de Floresta: <span id="val-f">50%</span></label>
+                        <input type="range" id="slide-f" min="0" max="100" value="50" oninput="updateEco()">
+                    </div>
+                    <div class="result-box">
+                        <div class="gauge-bar"><div id="gauge-fill"></div></div>
+                        <p id="eco-status">Analisando equilíbrio...</p>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="card" style="margin-bottom: 40px;">
-            <div class="card-title"><span>📌</span> Mural de Metas do Usuário</div>
-            <div class="mural-input-group">
-                <input type="text" id="mural-note-text" class="mural-input" placeholder="Nova ideia sustentável...">
-                <button class="btn" onclick="pushStickyNote()">Fixar</button>
-            </div>
-            <div class="mural-grid" id="mural-canvas">
-                <div class="sticky-note" style="background-color: #ffeaa7;">Compostagem orgânica! 🍂</div>
-                <div class="sticky-note" style="background-color: #dff9fb;">Energia Solar ☀️</div>
-            </div>
-        </div>
+        </section>
     </main>
-    <footer><p>© 2026 AgroEcoHub — Sustentabilidade no Campo</p></footer>
+
+    <footer>
+        <p>© 2026 AgroEcoHub Pro — Desenvolvido com Foco na Sustentabilidade Viva do Planeta</p>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
