@@ -1,5 +1,5 @@
 /* ==========================================================================
-   AGROECOHUB PRO - VERSÃO EXPANDIDA LINHA POR LINHA
+   AGROECOHUB PRO - CORREÇÃO CRÍTICA DE INTERFACE E ACESSIBILIDADE
    ========================================================================== */
 
 :root {
@@ -36,6 +36,7 @@ body {
     background-color: var(--bg-light);
     color: var(--text-dark);
     font-family: 'Space Grotesk', sans-serif;
+    padding: 0 15px; /* Evita que qualquer texto grude na borda da tela */
 }
 
 /* NAVBAR */
@@ -57,7 +58,7 @@ body {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 0 15px;
     align-items: center;
 }
 
@@ -91,17 +92,17 @@ body {
 
 /* HERO */
 .main-hero {
-    height: 75vh;
+    min-height: 75vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 40px 20px;
+    padding: 80px 20px 40px;
 }
 
 .main-hero h1 {
     font-family: 'Syne', sans-serif;
-    font-size: 3rem;
+    font-size: 2.8rem;
     margin-bottom: 15px;
     color: var(--text-dark);
 }
@@ -117,6 +118,7 @@ body {
     font-size: 1.1rem;
     max-width: 750px;
     margin: 0 auto;
+    padding: 0 10px;
 }
 
 .hero-btns {
@@ -148,7 +150,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
-    padding: 20px;
+    padding: 20px 10px;
     max-width: 1000px;
     margin: 0 auto;
 }
@@ -172,12 +174,12 @@ body {
     font-weight: 600;
 }
 
-/* ARENA DE JOGOS PREMIUM */
+/* ARENA DE JOGOS */
 .games-layout {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 25px;
-    padding: 20px;
+    padding: 20px 5px;
     max-width: 1000px;
     margin: 0 auto;
 }
@@ -276,46 +278,71 @@ body {
     cursor: pointer;
 }
 
-/* MINIGAMES ADICIONAIS */
+/* NOVO VISUAL FLIPERAMA PARA O JOGO DA MEMÓRIA */
 .memory-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
+    gap: 10px;
+    padding: 5px;
 }
 
 .memo-card {
-    height: 50px;
-    background: var(--text-dark);
-    color: white;
-    border-radius: 8px;
+    height: 60px;
+    background: linear-gradient(135deg, #2d3436, #111111);
+    color: transparent;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
-    font-size: 1.4rem;
+    font-weight: 900;
+    font-size: 1.6rem;
     cursor: pointer;
+    border: 3px solid var(--text-dark);
+    box-shadow: 0 4px 0px var(--text-dark);
+    transition: transform 0.1s;
+}
+
+.memo-card:active {
+    transform: translateY(4px);
+    box-shadow: none;
 }
 
 .memo-card.flipped {
-    background: var(--accent);
+    background: linear-gradient(135deg, var(--accent), #f1c40f);
     color: var(--text-dark);
-    border: 2px solid var(--text-dark);
 }
 
-.health-bar {
+.memo-card.matched {
+    background: linear-gradient(135deg, var(--primary), #2ecc71);
+    color: white;
+    border-color: var(--text-dark);
+    cursor: default;
+}
+
+/* FIX DA BARRA DE PREENCHIMENTO DO JOGO 4 */
+.health-bar, .water-bar {
     width: 100%;
-    height: 16px;
-    background: #eee;
-    border-radius: 8px;
-    margin-top: 10px;
+    height: 20px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    margin: 12px 0;
     border: 2px solid var(--text-dark);
     overflow: hidden;
+    position: relative;
 }
 
 #health-fill {
     height: 100%;
     width: 50%;
     background: var(--primary);
+    transition: width 0.3s ease;
+}
+
+#water-fill {
+    height: 100%;
+    width: 50%;
+    background: var(--secondary);
+    transition: width 0.3s ease;
 }
 
 .click-area {
@@ -352,7 +379,7 @@ body {
 .mural-section {
     max-width: 1000px;
     margin: 40px auto;
-    padding: 20px;
+    padding: 20px 10px;
 }
 
 .mural-wrapper {
@@ -385,7 +412,7 @@ body {
 
 .sticky-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 15px;
     margin-top: 20px;
 }
@@ -398,13 +425,8 @@ body {
     color: #111111;
 }
 
-.note.yellow {
-    background: #fff9c4;
-}
-
-.note.blue {
-    background: #e3f2fd;
-}
+.note.yellow { background: #fff9c4; }
+.note.blue { background: #e3f2fd; }
 
 /* FOOTER */
 .main-footer {
@@ -429,4 +451,8 @@ body {
     .main-hero h1 {
         font-size: 2.2rem;
     }
-   }
+    .hero-btns {
+        display: flex;
+        flex-direction: column;
+    }
+}
