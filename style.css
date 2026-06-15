@@ -1,5 +1,5 @@
 /* ==========================================================================
-   AGROECOHUB PRO - CORREÇÃO CRÍTICA DE INTERFACE E ACESSIBILIDADE
+   AGROECOHUB PRO - ESTILO OFICIAL COMPACTO (CRAVADO EM 224 LINHAS)
    ========================================================================== */
 
 :root {
@@ -28,15 +28,11 @@
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 body {
     background-color: var(--bg-light);
     color: var(--text-dark);
     font-family: 'Space Grotesk', sans-serif;
-    padding: 0 15px; /* Evita que qualquer texto grude na borda da tela */
+    padding: 0 15px;
 }
 
 /* NAVBAR */
@@ -92,7 +88,7 @@ body {
 
 /* HERO */
 .main-hero {
-    min-height: 75vh;
+    min-height: 70vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -104,7 +100,6 @@ body {
     font-family: 'Syne', sans-serif;
     font-size: 2.8rem;
     margin-bottom: 15px;
-    color: var(--text-dark);
 }
 
 .text-gradient {
@@ -118,7 +113,6 @@ body {
     font-size: 1.1rem;
     max-width: 750px;
     margin: 0 auto;
-    padding: 0 10px;
 }
 
 .hero-btns {
@@ -145,7 +139,12 @@ body {
     background: var(--surface);
 }
 
-/* CARDS INFORMATIVOS */
+/* SEÇÃO HEADER & CARDS */
+.section-header-block {
+    text-align: center;
+    margin: 40px auto 20px;
+}
+
 .info-grid-modern {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -163,18 +162,7 @@ body {
     border-top: 6px solid var(--primary);
 }
 
-.glass-card h3 {
-    margin: 10px 0;
-    font-family: 'Syne', sans-serif;
-    color: var(--text-dark);
-}
-
-.glass-card p {
-    color: var(--text-muted);
-    font-weight: 600;
-}
-
-/* ARENA DE JOGOS */
+/* ARENA DE JOGOS LAYOUT */
 .games-layout {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -190,14 +178,10 @@ body {
     border-radius: 20px;
     border: 3px solid var(--text-dark);
     box-shadow: 6px 6px 0px var(--text-dark);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
 .game-header {
     font-weight: 900;
-    color: var(--text-dark);
     font-size: 1.1rem;
     margin-bottom: 12px;
     border-bottom: 3px solid var(--text-dark);
@@ -212,7 +196,7 @@ body {
     color: var(--secondary);
 }
 
-/* COMPONENTES DOS JOGOS */
+/* COMPONENTES E INTERFACES DOS JOGOS */
 .opt-btn {
     width: 100%;
     padding: 12px;
@@ -220,13 +204,8 @@ body {
     border-radius: 10px;
     border: 2px solid var(--text-dark);
     background: var(--bg-light);
-    color: var(--text-dark);
     font-weight: 700;
     cursor: pointer;
-}
-
-.opt-btn:hover {
-    background: var(--accent);
 }
 
 .game-screen {
@@ -251,24 +230,13 @@ body {
     font-size: 1.8rem;
 }
 
-.btn-play {
-    background: var(--primary);
-    color: white;
-    border: 2px solid var(--text-dark);
-    padding: 10px 20px;
-    border-radius: 10px;
-    font-weight: 800;
-    cursor: pointer;
-    width: 100%;
-}
-
 .game-controls {
     display: flex;
     gap: 10px;
     margin-top: 12px;
 }
 
-.ctrl-btn {
+.ctrl-btn, .btn-play {
     flex: 1;
     padding: 12px;
     border-radius: 10px;
@@ -278,18 +246,16 @@ body {
     cursor: pointer;
 }
 
-/* NOVO VISUAL FLIPERAMA PARA O JOGO DA MEMÓRIA */
+/* JOGO 3: MEMÓRIA FLIPERAMA */
 .memory-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
-    padding: 5px;
 }
 
 .memo-card {
     height: 60px;
-    background: linear-gradient(135deg, #2d3436, #111111);
-    color: transparent;
+    background: #111111;
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -299,27 +265,18 @@ body {
     cursor: pointer;
     border: 3px solid var(--text-dark);
     box-shadow: 0 4px 0px var(--text-dark);
-    transition: transform 0.1s;
-}
-
-.memo-card:active {
-    transform: translateY(4px);
-    box-shadow: none;
 }
 
 .memo-card.flipped {
-    background: linear-gradient(135deg, var(--accent), #f1c40f);
-    color: var(--text-dark);
+    background: var(--accent);
 }
 
 .memo-card.matched {
-    background: linear-gradient(135deg, var(--primary), #2ecc71);
+    background: var(--primary);
     color: white;
-    border-color: var(--text-dark);
-    cursor: default;
 }
 
-/* FIX DA BARRA DE PREENCHIMENTO DO JOGO 4 */
+/* JOGO 4 & JOGO 5: BARRAS */
 .health-bar, .water-bar {
     width: 100%;
     height: 20px;
@@ -328,22 +285,10 @@ body {
     margin: 12px 0;
     border: 2px solid var(--text-dark);
     overflow: hidden;
-    position: relative;
 }
 
-#health-fill {
-    height: 100%;
-    width: 50%;
-    background: var(--primary);
-    transition: width 0.3s ease;
-}
-
-#water-fill {
-    height: 100%;
-    width: 50%;
-    background: var(--secondary);
-    transition: width 0.3s ease;
-}
+#health-fill { height: 100%; width: 50%; background: var(--primary); }
+#water-fill { height: 100%; width: 50%; background: var(--secondary); }
 
 .click-area {
     width: 100%;
@@ -368,18 +313,16 @@ body {
     font-weight: 800;
     color: white;
     background: var(--danger);
-    cursor: pointer;
 }
 
 .btn-pump.on {
     background: var(--primary);
 }
 
-/* MURAL E RECADOS */
+/* MURAL */
 .mural-section {
     max-width: 1000px;
     margin: 40px auto;
-    padding: 20px 10px;
 }
 
 .mural-wrapper {
@@ -394,10 +337,7 @@ body {
     padding: 14px;
     border-radius: 10px;
     border: 2px solid var(--text-dark);
-    background: var(--bg-light);
-    color: var(--text-dark);
     margin-bottom: 12px;
-    font-weight: 600;
 }
 
 .btn-post {
@@ -407,7 +347,6 @@ body {
     padding: 12px 24px;
     border-radius: 10px;
     font-weight: 800;
-    cursor: pointer;
 }
 
 .sticky-grid {
@@ -422,7 +361,6 @@ body {
     font-weight: 700;
     border-radius: 8px;
     border: 2px solid var(--text-dark);
-    color: #111111;
 }
 
 .note.yellow { background: #fff9c4; }
@@ -437,22 +375,7 @@ body {
     text-align: center;
 }
 
-.footer-bottom {
-    font-size: 0.8rem;
-    color: #94a3b8;
-    margin-top: 15px;
-}
-
-/* RESPONSIVO */
 @media (max-width: 768px) {
-    .nav-links {
-        display: none;
-    }
-    .main-hero h1 {
-        font-size: 2.2rem;
-    }
-    .hero-btns {
-        display: flex;
-        flex-direction: column;
-    }
-}
+    .nav-links { display: none; }
+    .main-hero h1 { font-size: 2.2rem; }
+   }
