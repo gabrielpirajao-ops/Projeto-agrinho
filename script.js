@@ -1,133 +1,128 @@
-function toggleMode() { const t = document.body.getAttribute('data-theme'); document.body.setAttribute('data-theme', t === 'dark' ? '' : 'dark'); }
-
-// GERADOR DE FOLHAS CAINDO
-const container = document.getElementById('leaves-container');
-for (let i = 0; i < 10; i++) {
-    let l = document.createElement('span'); l.className = 'leaf-particle'; l.innerText = '🍃';
-    l.style.left = Math.random() * 100 + 'vw'; l.style.animationDelay = Math.random() * 5 + 's'; container.appendChild(l);
+/* DESIGN E PALETA DE CORES MODERNA (CYBER-AGRO) */
+:root {
+    --bg: #f0f7f4;
+    --surface: #ffffff;
+    --text: #0f172a;
+    --text-light: #64748b;
+    --primary: #00b894;
+    --secondary: #0984e3;
+    --accent: #fdcb6e;
+    --danger: #ff7675;
+    --purple: #a29bfe;
+    --radius-lg: 20px;
+    --radius-md: 12px;
+    --shadow: 0 10px 30px rgba(0, 184, 148, 0.08);
+    --border: #e2e8f0;
 }
 
-// CURIOSIDADES DINÂMICAS
-const facts = [
-    "🚜 Sensores enterrados no solo avisam o celular do agricultor quando a terra está ficando seca, evitando o desperdício de água!",
-    "🐝 As abelhas e polinizadores são responsáveis por garantir a reprodução de mais de 73% das plantas cultivadas.",
-    "🌾 A rotação de culturas (mudar o tipo de planta a cada safra) quebra o ciclo de vida das pragas naturalmente, sem usar veneno.",
-    "🛰️ Drones de alta resolução conseguem identificar plantas doentes antes mesmo que os olhos humanos consigam notar!"
-];
-function generateFact() {
-    const randomFact = facts[Math.floor(Math.random() * facts.length)];
-    document.getElementById('fact-display').innerText = randomFact;
-}
-generateFact(); // inicia com uma
-
-// JOGO DO QUIZ
-const quizItems = [
-    { q: "Vantagem da rotação de culturas?", o: ["Desgastar o solo", "Quebrar ciclos de pragas e repor nutrientes"], a: 1 },
-    { q: "O que é agricultura de precisão?", o: ["Uso de drones, IA e sensores", "Plantio manual sem dados"], a: 0 }
-];
-let quizIdx = 0, currentScore = 0;
-function drawQuizQuestion() {
-    document.getElementById('quiz-alert-box').style.display = 'none';
-    if(quizIdx >= quizItems.length) { document.getElementById('quiz-question').innerText = "🎉 Concluído!"; document.getElementById('quiz-options-grid').innerHTML = ""; return; }
-    let item = quizItems[quizIdx]; document.getElementById('quiz-progress').innerText = `Questão ${quizIdx + 1}/${quizItems.length}`; document.getElementById('quiz-question').innerText = item.q;
-    let h = ""; item.o.forEach((opt, idx) => { h += `<button class="quiz-option" onclick="evalQuiz(${idx}, this)">${opt}</button>`; });
-    document.getElementById('quiz-options-grid').innerHTML = h;
-}
-function evalQuiz(sel, el) {
-    let corr = quizItems[quizIdx].a; const box = document.getElementById('quiz-alert-box');
-    document.querySelectorAll('.quiz-option').forEach(b => b.disabled = true);
-    if(sel === corr) { currentScore += 10; el.classList.add('correct'); box.innerText = "Certo!"; }
-    else { el.classList.add('wrong'); box.innerText = "Incorreto!"; }
-    document.getElementById('quiz-points').innerText = currentScore; box.style.display = 'block';
-    setTimeout(() => { quizIdx++; drawQuizQuestion(); }, 1500);
-}
-drawQuizQuestion();
-
-// JOGO DO COLETOR
-let pX = 50, gActive = false, colScore = 0, colTime = 30, cGLoop, cSLoop;
-function shiftBasket(o) { if(!gActive) return; pX += o/4; pX = Math.max(5, Math.min(85, pX)); document.getElementById('basket-element').style.left = pX + '%'; }
-function initCollectorGame() {
-    document.getElementById('game-menu').style.display = 'none'; gActive = true; colScore = 0; colTime = 30;
-    cGLoop = setInterval(() => { colTime--; document.getElementById('collector-timer').innerText = colTime; if(colTime<=0) endCollector(); }, 1000);
-    cSLoop = setInterval(() => {
-        if(!gActive) return; let it = document.createElement('div'); it.className = 'game-item'; let gd = Math.random() > 0.3;
-        it.innerText = gd ? '🌱' : '⚠️'; it.style.left = (Math.random() * 80 + 10) + '%'; document.getElementById('game-arena').appendChild(it);
-        let y = -40; let timer = setInterval(() => {
-            if(!gActive) { clearInterval(timer); it.remove(); return; } y += 5; it.style.top = y + 'px';
-            if(y > 210 && y < 235 && Math.abs(parseFloat(it.style.left) - pX) < 15) { colScore += gd ? 10 : -15; document.getElementById('collector-score').innerText = colScore; clearInterval(timer); it.remove(); }
-            if(y > 260) { clearInterval(timer); it.remove(); }
-        }, 25);
-    }, 1200);
-}
-function endCollector() { gActive = false; clearInterval(cGLoop); clearInterval(cSLoop); const m = document.getElementById('game-menu'); m.innerHTML = `<h3>Fim!</h3><p>Pontos: ${colScore}</p><button class="btn btn-accent" onclick="initCollectorGame()">De novo</button>`; m.style.display = 'flex'; }
-
-// JOGO DA MEMÓRIA SUSTENTÁVEL
-const icons = ['🌱', '🌱', '☀️', '☀️', '🚜', '🚜', '🐝', '🐝'];
-let flippedCards = [];
-function startMemoryGame() {
-    const board = document.getElementById('memory-board'); board.innerHTML = ''; flippedCards = [];
-    let shuffled = icons.sort(() => Math.random() - 0.5);
-    shuffled.forEach((icon, index) => {
-        let card = document.createElement('div'); card.className = 'memory-card'; card.dataset.icon = icon; card.dataset.id = index; card.innerText = '?';
-        card.onclick = () => flipMemoryCard(card); board.appendChild(card);
-    });
-}
-function flipMemoryCard(card) {
-    if (flippedCards.length < 2 && !card.classList.contains('flipped') && !card.classList.contains('matched')) {
-        card.classList.add('flipped'); card.innerText = card.dataset.icon; flippedCards.push(card);
-        if (flippedCards.length === 2) {
-            setTimeout(checkMemoryMatch, 800);
-        }
-    }
-}
-function checkMemoryMatch() {
-    if (flippedCards[0].dataset.icon === flippedCards[1].dataset.icon) {
-        flippedCards[0].classList.add('matched'); flippedCards[1].classList.add('matched');
-    } else {
-        flippedCards[0].classList.remove('flipped'); flippedCards[0].innerText = '?';
-        flippedCards[1].classList.remove('flipped'); flippedCards[1].innerText = '?';
-    }
-    flippedCards = [];
-}
-startMemoryGame();
-
-// SIMULADOR DE IRRIGAÇÃO INTELIGENTE
-let moisture = 50; let watering = false;
-setInterval(() => {
-    if (watering) { moisture += 4; if(moisture > 100) moisture = 100; } 
-    else { moisture -= 2; if(moisture < 20) moisture = 20; }
-    document.getElementById('moisture-val').innerText = moisture + "%";
-    const feedback = document.getElementById('irrigation-feedback');
-    if(moisture >= 60 && moisture <= 75) { feedback.innerText = "😊 Solo perfeito! Economizando água."; }
-    else if(moisture > 75) { feedback.innerText = "🚨 Solo encharcado! Desligue a irrigação!"; }
-    else { feedback.innerText = "🍂 Solo seco! Precisa de água."; }
-}, 1000);
-function toggleIrrigation() {
-    watering = !watering; const btn = document.getElementById('irrigate-btn');
-    if (watering) { btn.innerText = "DESLIGAR IRRIGAÇÃO 🛑"; btn.className = "water-btn water-on"; document.getElementById('irrigation-status').innerText = "Ligado"; } 
-    else { btn.innerText = "LIGAR IRRIGAÇÃO 💦"; btn.className = "water-btn water-off"; document.getElementById('irrigation-status').innerText = "Desligado"; }
+[data-theme="dark"] {
+    --bg: #070d0a;
+    --surface: #0f1d16;
+    --text: #f8fafc;
+    --text-light: #94a3b8;
+    --border: #1b3527;
+    --shadow: 0 10px 35px rgba(0,0,0,0.4);
 }
 
-// SIMULADOR DE CAMPO (SLIDERS)
-function runSim() {
-    let t = parseInt(document.getElementById('range-tech').value), b = parseInt(document.getElementById('range-bio').value);
-    document.getElementById('lbl-tech').innerText = t + "%"; document.getElementById('lbl-bio').innerText = b + "%";
-    document.getElementById('badge-1').style.opacity = t >= 75 ? "1" : "0.2"; document.getElementById('badge-2').style.opacity = b >= 55 ? "1" : "0.2";
-    let v = Math.min(100, Math.round((t * 0.5) + (b * 0.7))); document.getElementById('gauge-bar-fill').style.width = v + "%"; document.getElementById('gauge-value').innerText = v + "%";
-    document.getElementById('sim-status-message').innerText = t >= 70 && b >= 50 ? "🏆 Sinergia Perfeita no Campo!" : "⚖️ Ajuste os níveis para melhorar os resultados.";
-}
-runSim();
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; }
+body { background: var(--bg); color: var(--text); padding-bottom: 20px; transition: background 0.3s, color 0.3s; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
 
-function switchTab(e, id) { document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active')); document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); document.getElementById(id).classList.add('active'); e.currentTarget.classList.add('active'); }
+/* NAVBAR COMPACTA */
+.navbar { height: 75px; background: var(--surface); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; box-shadow: var(--shadow); border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 100; }
+.logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; color: var(--primary); }
+.nav-right { display: flex; align-items: center; gap: 15px; }
+.nav-item { text-decoration: none; color: var(--text); font-weight: 700; font-size: 0.95rem; }
+.btn-theme { background: var(--bg); border: 2px solid var(--primary); padding: 8px 14px; border-radius: var(--radius-md); color: var(--text); font-weight: 700; cursor: pointer; }
 
-function evalCarbon() {
-    let d = parseFloat(document.getElementById('inp-diesel').value)||0, f = parseFloat(document.getElementById('inp-fert').value)||0, c = Math.round((d * 2.6) + (f * 3.4));
-    document.getElementById('calc-panel').style.display = "block"; document.getElementById('calc-score-val').innerText = c;
-    document.getElementById('calc-indicator').style.backgroundColor = c < 700 ? "var(--success)" : "var(--danger)";
-}
+/* HERO IMPRESSIONANTE */
+.hero { text-align: center; padding: 70px 16px; background: linear-gradient(135deg, rgba(0,184,148,0.12), rgba(9,132,227,0.12)); border-radius: 0 0 40px 40px; margin-bottom: 40px; }
+.badge { background: var(--primary); color: white; padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; display: inline-block; margin-bottom: 15px; letter-spacing: 1px; }
+.hero h1 { font-family: 'Syne', sans-serif; font-size: 2.8rem; line-height: 1.1; margin-bottom: 15px; color: var(--text); }
+.hero p { max-width: 650px; margin: 0 auto 25px; color: var(--text-light); font-size: 1.1rem; font-weight: 500; }
 
-function pushStickyNote() {
-    let inp = document.getElementById('mural-note-text'); let txt = inp.value.trim(); if(!txt) return;
-    let c = document.createElement('div'); c.className = "sticky-note"; c.style.backgroundColor = '#ffeaa7'; c.innerText = txt;
-    document.getElementById('mural-canvas').appendChild(c); inp.value = "";
-}
+/* INFORMAÇÕES ADICIONAIS */
+.section-title { font-family: 'Syne', sans-serif; font-size: 1.9rem; margin-bottom: 20px; color: var(--text); display: flex; align-items: center; gap: 10px; }
+.info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 25px; }
+.info-card { background: var(--surface); padding: 25px; border-radius: var(--radius-lg); box-shadow: var(--shadow); border-left: 6px solid var(--primary); }
+.info-card.tech { border-color: var(--secondary); }
+.info-card.fauna { border-color: var(--accent); }
+.info-card.agua { border-color: var(--purple); }
+.info-card .icon { font-size: 2rem; margin-bottom: 10px; }
+.info-card h3 { margin-bottom: 8px; font-family: 'Syne', sans-serif; }
+.info-card p { color: var(--text-light); font-size: 0.95rem; text-align: justify; }
+
+.fact-container { background: var(--surface); padding: 20px; border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; box-shadow: var(--shadow); border: 2px dashed var(--accent); }
+.fact-container h3 { font-family: 'Syne', sans-serif; min-width: 200px; }
+#fact-box { flex: 1; font-weight: 500; color: var(--text); }
+
+/* GRID DE JOGOS COLORIDOS */
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; margin-top: 20px; }
+.card { background: var(--surface); padding: 25px; border-radius: var(--radius-lg); box-shadow: var(--shadow); border: 2px solid var(--border); transition: transform 0.2s, border-color 0.2s; position: relative; }
+.card:hover { transform: translateY(-5px); }
+.card-tag { position: absolute; top: 15px; right: 20px; font-size: 0.75rem; font-weight: 800; opacity: 0.6; letter-spacing: 0.5px; }
+.game-card h3 { font-family: 'Syne', sans-serif; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid var(--border); }
+.game-desc { font-size: 0.9rem; color: var(--text-light); margin-bottom: 15px; }
+
+/* DETALHES DE ESTILO DE CADA JOGO */
+.c-quiz { border-top: 5px solid var(--primary); }
+.c-coletor { border-top: 5px solid var(--secondary); }
+.c-memoria { border-top: 5px solid var(--accent); }
+.c-irrigador { border-top: 5px solid var(--danger); }
+.c-equilibrio { border-top: 5px solid var(--purple); }
+
+.status-row { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 15px; }
+.pts { color: var(--secondary); font-size: 1.1rem; }
+
+/* BOTÕES GERAIS */
+.btn { border: none; padding: 12px 24px; border-radius: var(--radius-md); font-weight: 700; cursor: pointer; transition: 0.2s; font-size: 0.95rem; }
+.btn-main { background: var(--primary); color: white; }
+.btn-accent { background: var(--accent); color: #000; }
+.btn-reset { background: var(--bg); color: var(--text); border: 2px solid var(--border); width: 100%; margin-top: 15px; }
+.btn:hover { opacity: 0.9; transform: scale(1.02); }
+
+/* JOGO 1: QUIZ */
+.quiz-opt { width: 100%; padding: 12px 16px; background: var(--bg); border: 2px solid transparent; border-radius: var(--radius-md); text-align: left; margin-bottom: 10px; font-weight: 600; color: var(--text); cursor: pointer; transition: 0.2s; }
+.quiz-opt:hover { border-color: var(--primary); background: var(--surface); }
+.game-feedback { text-align: center; font-weight: 700; padding: 8px; margin-top: 5px; border-radius: 6px; display: none; }
+
+/* JOGO 2: COLETOR */
+.arena { width: 100%; height: 200px; background: linear-gradient(to bottom, #87ceeb, #e0f7fa); border-radius: var(--radius-md); position: relative; overflow: hidden; border: 2px solid var(--secondary); margin-top: 10px; }
+#basket { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); font-size: 1.8rem; z-index: 5; transition: left 0.1s ease-out; }
+.item-drop { position: absolute; font-size: 1.5rem; top: -30px; z-index: 4; }
+.overlay { position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.65); display: flex; align-items: center; justify-content: center; }
+.btn-play { background: var(--secondary); color: white; }
+.controls { display: flex; gap: 10px; margin-top: 12px; }
+.btn-ctrl { flex: 1; padding: 12px; background: var(--bg); border: 2px solid var(--secondary); border-radius: var(--radius-md); font-weight: 700; color: var(--text); cursor: pointer; }
+
+/* JOGO 3: MEMÓRIA */
+.memo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.memo-card { height: 55px; background: var(--accent); color: var(--accent); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: 700; cursor: pointer; user-select: none; transition: 0.2s; }
+.memo-card.flipped { background: var(--bg); color: var(--text); border: 2px solid var(--accent); }
+.memo-card.matched { background: rgba(0, 184, 148, 0.2); color: var(--primary); border: 2px solid var(--primary); cursor: default; }
+
+/* JOGO 4: IRRIGADOR */
+.btn-water { width: 100%; padding: 14px; border: none; border-radius: var(--radius-md); font-weight: 700; color: white; background: var(--danger); cursor: pointer; font-size: 1rem; }
+.btn-water.on { background: var(--primary); }
+.feedback-msg { text-align: center; margin-top: 12px; font-weight: 700; font-size: 1rem; }
+
+/* JOGO 5: EQUILÍBRIO */
+.slider-group { margin-bottom: 12px; }
+.slider-group label { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 4px; font-size: 0.9rem; }
+.slider-group input { width: 100%; height: 6px; background: var(--bg); border-radius: 5px; outline: none; }
+.gauge-bar { width: 100%; height: 18px; background: var(--bg); border-radius: 10px; overflow: hidden; margin-top: 12px; border: 1px solid var(--border); }
+#gauge-fill { height: 100%; width: 50%; background: var(--purple); transition: width 0.4s; }
+#eco-status { text-align: center; font-weight: 700; margin-top: 8px; font-size: 0.95rem; }
+
+/* ANIMADOR DE PARTÍCULAS */
+.leaf { position: fixed; pointer-events: none; z-index: -1; opacity: 0.2; animation: fall 10s infinite linear; top: -20px; }
+@keyframes fall { 0% { transform: translateY(0) rotate(0deg); } 100% { transform: translateY(105vh) rotate(360deg); } }
+
+footer { background: var(--surface); text-align: center; padding: 25px; margin-top: 40px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; font-weight: 700; font-size: 0.9rem; border-top: 2px solid var(--border); color: var(--text-light); }
+
+@media(max-width: 500px) {
+    .hero h1 { font-size: 2rem; }
+    .nav-right { display: none; }
+    .grid { grid-template-columns: 1fr; }
+       }
+                 
