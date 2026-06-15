@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agro Forte, Futuro Sustentável</title>
+    <style>
+        /* --- VARIÁVEIS DE CORES (SISTEMA DE TEMAS) --- */
+        :root {
+            --primary: #2c5e3b; /* Verde Agro */
+            --secondary: #e67e22; /* Laranja Produção */
+            --bg-light: #f4f9f4;
+            --text-dark: #2c3e50;
+            --card-bg: #ffffff;
+            --accent: #27ae60;
+        }
+
+        [data-theme="eco"] {
+            --primary: #16a085; /* Verde Água Sustentável */
+            --secondary: #2ecc71; /* Verde Vivo */
+            --bg-light: #e8f8f5;
+            --text-dark: #111;
+            --card-bg: #ffffff;
+            --accent: #a3e4d7;
+        }
+
+        /* --- RESET E ESTILOS GERAIS --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR INTERATIVA --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.4rem;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .btn-theme {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* --- HERO HEADER --- */
+        header {
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(44, 94, 59, 0.8), rgba(230, 126, 34, 0.6)), url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: fadeInDown 1s ease;
+        }
+
+        header p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            animation: fadeInUp 1s ease;
+        }
+
+        .btn-main {
+            background: var(--secondary);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-main:hover {
+            transform: scale(1.05);
+            background: #d35400;
+        }
+
+        /* --- SEÇÃO PILARES (CARDS FLIP INTERATIVOS) --- */
+        .section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        /* Efeito Flip Card */
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            height: 350px;
+            perspective: 1000px;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 15px;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .flip-card-front {
+            background: var(--card-bg);
+            color: var(--text-dark);
+            border: 2px solid var(--primary);
+        }
+
+        .flip-card-front h3 {
+            margin-top: 15px;
+            color: var(--primary);
+        }
+
+        .flip-card-back {
+            background: var(--primary);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .icon-large {
+            font-size: 4rem;
+            color: var(--secondary);
+        }
+
+        /* --- SIMULADOR INTERATIVO --- */
+        .simulador-box {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .simulador-box label {
+            font-weight: bold;
+            display: block;
+            margin-top: 20px;
+        }
+
+        .slider {
+            width: 100%;
+            height: 15px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+            margin-top: 10px;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: var(--secondary);
+            cursor: pointer;
+        }
+
+        .resultado-painel {
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--bg-light);
+            border-left: 5px solid var(--primary);
+            border-radius: 5px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+        }
+
+        /* --- ANIMACÕES --- */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            nav { padding: 15px 20px; flex-direction: column; gap: 10px; }
+            header h1 { font-size: 2.2rem; }
+            .grid-cards { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">🌱 AgroSustentável</div>
+        <ul class="nav-links">
+            <li><a href="#inicio">Início</a></li>
+            <li><a href="#pilares">Pilares</a></li>
+            <li><a href="#simulador">Simulador</a></li>
+            <li><button class="btn-theme" onclick="toggleTheme()">Alternar Visão</button></li>
+        </ul>
+    </nav>
+
+    <header id="inicio">
+        <h1>Agro Forte, Futuro Sustentável</h1>
+        <p>O equilíbrio perfeito entre a potência da produção agrícola e a preservação do meio ambiente. Tecnologia e natureza caminhando juntas.</p>
+        <a href="#simulador" class="btn-main">Testar Simulador</a>
+    </header>
+
+    <section class="section" id="pilares">
+        <h2>Nossos Pilares de Equilíbrio</h2>
+        <div class="grid-cards">
+            
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="icon-large">🚜</div>
+                        <h3>Tecnologia de Ponta</h3>
+                        <p>Passe o mouse para saber mais</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3>Produtividade Eficiente</h3>
+                        <p>Uso de drones, sensores IoT e tratores autônomos para maximizar a colheita reduzindo o desperdício de insumos e combustível.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="icon-large">💧</div>
+                        <h3>Manejo Hídrico</h3>
+                        <p>Passe o mouse para saber mais</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3>Preservação da Água</h3>
+                        <p>Sistemas de irrigação gota a gota e captação de água da chuva garantem que cada gota seja aproveitada sem secar nossos rios.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="icon-large">🌳</div>
+                        <h3>Reflorestamento</h3>
+                        <p>Passe o mouse para saber mais</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3>Crédito de Carbono</h3>
+                        <p>Integração Lavoura-Pecuária-Floresta (ILPF) que ajuda a reter o carbono no solo e recuperar áreas degradadas.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section" style="background: rgba(0,0,0,0.02);" id="simulador">
+        <h2>Simulador de Impacto Agro-Ambiental</h2>
+        <p style="margin-bottom: 30px;">Ajuste os controles abaixo para ver como as decisões de manejo impactam a produção e a sustentabilidade.</p>
+        
+        <div class="simulador-box">
+            <label for="tecnologia">Nível de Tecnologia Aplicada: <span id="val-tec">50</span>%</label>
+            <input type="range" id="tecnologia" class="slider" min="0" max="100" value="50" oninput="atualizarSimulador()">
+
+            <label for="preservacao">Área de Preservação Mantida: <span id="val-pres">20</span>%</label>
+            <input type="range" id="preservacao" class="slider" min="20" max="80" value="20" oninput="atualizarSimulador()">
+
+            <div class="resultado-painel">
+                <h3>Resultado Projetado:</h3>
+                <p id="resultado-texto">Ajuste os parâmetros acima para calcular a eficiência de sua fazenda sustentável.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Agro Forte & Sustentável - Desenvolvido para o Futuro do Planeta</p>
+    </footer>
+
+    <script>
+        // Função para Alternar Temas (Foco em Produção vs Foco em Natureza)
+        function toggleTheme() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'eco') {
+                document.body.removeAttribute('data-theme');
+            } else {
+                document.body.setAttribute('data-theme', 'eco');
+            }
+        }
+
+        // Lógica do Simulador Interativo
+        function atualizarSimulador() {
+            const tec = document.getElementById('tecnologia').value;
+            const pres = document.getElementById('preservacao').value;
+
+            document.getElementById('val-tec').innerText = tec;
+            document.getElementById('val-pres').innerText = pres;
+
+            let resultado = "";
+            
+            // Lógica de cruzamento de dados para gerar respostas inteligentes
+            if (tec > 70 && pres > 50) {
+                resultado = "🏆 **Fazenda Modelo!** Alta produtividade com máxima proteção ambiental. O uso de tecnologia compensa a área preservada, gerando créditos de carbono e lucro alto.";
+            } else if (tec < 40 && pres < 30) {
+                resultado = "⚠️ **Zona de Risco!** Baixa produtividade e perigo de sanções ambientais. O solo corre risco de esgotamento rápido sem tecnologia e sem mata nativa.";
+            } else if (tec > 70 && pres <= 30) {
+                resultado = "🚜 **Foco Produtivo Elevado.** Sua colheita é gigante devido à tecnologia, mas preste atenção: a falta de áreas verdes pode afetar o regime de chuvas local a longo prazo.";
+            } else if (tec <= 40 && pres > 50) {
+                resultado = "🍃 **Santuário Ecológico.** Excelente preservação ambiental, porém a produção está baixa. Implementar mais tecnologias aumentaria o rendimento sem agredir a floresta.";
+            } else {
+                resultado = "⚖️ **Equilíbrio em andamento.** A fazenda está no caminho certo. Pequenos ajustes em tecnologia podem disparar os lucros sem perder a responsabilidade ambiental.";
+            }
+
+            document.getElementById('resultado-texto').innerHTML = resultado;
+        }
+
+        // Inicializa o simulador na primeira carga da página
+        window.onload = function() {
+            atualizarSimulador();
+        }
+    </script>
+</body>
+</html>
