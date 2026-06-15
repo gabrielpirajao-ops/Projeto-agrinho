@@ -1,105 +1,465 @@
-const canvas = document.getElementById('particle-canvas');
-const ctx = canvas?.getContext('2d');
-let particles = [];
-function resizeCanvas() { if (canvas) { canvas.width = window.innerWidth; canvas.height = window.innerHeight; } }
-window.addEventListener('resize', resizeCanvas); resizeCanvas();
-class Particle {
-    constructor() {
-        this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 3 + 1; this.speedY = Math.random() * -1 - 0.5;
+// =========================
+// AGRINHO 2026
+// SCRIPT PRINCIPAL
+// =========================
+
+let waterScore = 0;
+let gameRunning = false;
+
+// =========================
+// BOTÃO EXPLORAR
+// =========================
+
+function rolarParaSobre() {
+    document
+        .getElementById("sobre")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+}
+
+// =========================
+// JOGO 1 - ECONOMIA DE ÁGUA
+// =========================
+
+function startWaterGame() {
+
+    if (gameRunning) {
+        alert("O jogo já está acontecendo!");
+        return;
     }
-    update() { this.y += this.speedY; if (this.y < 0) this.y = canvas.height; }
-    draw() {
-        if (!ctx) return;
-        ctx.fillStyle = document.documentElement.getAttribute('data-theme') === 'dark' ? 'rgba(255,255,255,0.15)' : 'rgba(0,184,148,0.2)';
-        ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+
+    gameRunning = true;
+
+    waterScore = 0;
+
+    document.getElementById(
+        "waterScore"
+    ).innerText =
+        "Pontos: 0";
+
+    const area =
+        document.getElementById(
+            "waterZone"
+        );
+
+    area.innerHTML = "";
+
+    let tempo = 15;
+
+    alert(
+        "Clique nas gotas 💧 durante 15 segundos!"
+    );
+
+    const criador =
+        setInterval(() => {
+
+            const gota =
+                document.createElement(
+                    "div"
+                );
+
+            gota.classList.add(
+                "drop"
+            );
+
+            gota.innerHTML = "💧";
+
+            gota.style.left =
+                Math.random() * 90 +
+                "%";
+
+            gota.style.top =
+                Math.random() * 70 +
+                "%";
+
+            gota.onclick = () => {
+
+                waterScore++;
+
+                document.getElementById(
+                    "waterScore"
+                ).innerText =
+                    "Pontos: " +
+                    waterScore;
+
+                gota.remove();
+            };
+
+            area.appendChild(gota);
+
+            setTimeout(() => {
+
+                if (
+                    area.contains(gota)
+                ) {
+                    gota.remove();
+                }
+
+            }, 3000);
+
+        }, 500);
+
+    const contador =
+        setInterval(() => {
+
+            tempo--;
+
+            if (tempo <= 0) {
+
+                clearInterval(
+                    criador
+                );
+
+                clearInterval(
+                    contador
+                );
+
+                gameRunning =
+                    false;
+
+                alert(
+                    "Fim do jogo!\nVocê economizou " +
+                    waterScore +
+                    " litros simbólicos de água."
+                );
+            }
+
+        }, 1000);
+}
+
+// =========================
+// JOGO 2 - PLANTIO
+// =========================
+
+function plantGame() {
+
+    const opcoes = [
+
+        {
+            texto:
+                "Usar irrigação inteligente",
+            correta: true
+        },
+
+        {
+            texto:
+                "Desperdiçar água",
+            correta: false
+        },
+
+        {
+            texto:
+                "Plantar árvores",
+            correta: true
+        },
+
+        {
+            texto:
+                "Poluir rios",
+            correta: false
+        },
+
+        {
+            texto:
+                "Usar biofertilizantes",
+            correta: true
+        },
+
+        {
+            texto:
+                "Desmatar áreas protegidas",
+            correta: false
+        }
+
+    ];
+
+    const sorteio =
+        opcoes[
+            Math.floor(
+                Math.random() *
+                opcoes.length
+            )
+        ];
+
+    const resposta =
+        confirm(
+            sorteio.texto +
+            "\n\nEssa prática é sustentável?"
+        );
+
+    let mensagem = "";
+
+    if (
+        resposta === true &&
+        sorteio.correta
+    ) {
+
+        mensagem =
+            "Excelente! 🌱";
+
+    }
+
+    else if (
+        resposta === false &&
+        !sorteio.correta
+    ) {
+
+        mensagem =
+            "Correto! 🌿";
+
+    }
+
+    else {
+
+        mensagem =
+            "Ops! Tente novamente.";
+
+    }
+
+    document.getElementById(
+        "plantResult"
+    ).innerText =
+        mensagem;
+}
+
+// =========================
+// JOGO 3 - QUIZ
+// =========================
+
+function quizGame() {
+
+    const perguntas = [
+
+        {
+            pergunta:
+                "Qual recurso natural é essencial para a agricultura?",
+
+            resposta:
+                "agua"
+        },
+
+        {
+            pergunta:
+                "Qual tecnologia ajuda a monitorar lavouras pelo céu?",
+
+            resposta:
+                "drone"
+        },
+
+        {
+            pergunta:
+                "Qual fonte de energia limpa pode ser usada em fazendas?",
+
+            resposta:
+                "solar"
+        },
+
+        {
+            pergunta:
+                "O que deve ser preservado para proteger a biodiversidade?",
+
+            resposta:
+                "floresta"
+        },
+
+        {
+            pergunta:
+                "Qual inseto é importante para a polinização?",
+
+            resposta:
+                "abelha"
+        }
+
+    ];
+
+    const pergunta =
+        perguntas[
+            Math.floor(
+                Math.random() *
+                perguntas.length
+            )
+        ];
+
+    const resposta =
+        prompt(
+            pergunta.pergunta
+        );
+
+    if (
+        resposta === null
+    ) {
+        return;
+    }
+
+    const texto =
+        resposta
+        .toLowerCase()
+        .trim();
+
+    if (
+        texto.includes(
+            pergunta.resposta
+        )
+    ) {
+
+        document.getElementById(
+            "quizResult"
+        ).innerText =
+            "✅ Resposta correta!";
+
+    }
+
+    else {
+
+        document.getElementById(
+            "quizResult"
+        ).innerText =
+            "❌ Resposta incorreta.";
+
     }
 }
-function initParticles() { particles = []; for (let i = 0; i < 40; i++) particles.push(new Particle()); }
-function animateParticles() { if (ctx && canvas) { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); } requestAnimationFrame(animateParticles); }
-if (canvas) { initParticles(); animateParticles(); }
-function toggleTheme() {
-    const current = document.documentElement.getAttribute('data-theme'); const target = current === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', target); document.getElementById('theme-toggle').innerText = target === 'dark' ? '🌙 Escuro' : '☀️ Claro';
+
+// =========================
+// ANIMAÇÃO DE ENTRADA
+// =========================
+
+const observer =
+new IntersectionObserver(
+
+(entries) => {
+
+entries.forEach(
+
+(entry) => {
+
+if (
+entry.isIntersecting
+) {
+
+entry.target.style.opacity = 1;
+
+entry.target.style.transform =
+"translateY(0px)";
+
 }
-const quizData = [
-    { q: "Qual técnica economiza mais água na agricultura?", o: ["Aspersão convencional", "Gotejamento direcionado", "Inundação de sulcos"], a: 1 },
-    { q: "Qual o papel principal dos drones na lavoura?", o: ["Substituir tratores", "Mapeamento e detecção de pragas", "Espantar pássaros"], a: 1 },
-    { q: "O que caracteriza a rotação de culturas?", o: ["Mudar a posição do sol", "Alternar espécies na mesma área", "Usar adubo químico"], a: 1 }
-];
-let currentQuizIdx = 0, quizPoints = 0;
-function loadQuiz() {
-    const current = quizData[currentQuizIdx]; document.getElementById('quiz-question').innerText = current.q;
-    const container = document.getElementById('quiz-options'); container.innerHTML = '';
-    current.o.forEach((opt, i) => { const btn = document.createElement('button'); btn.className = 'opt-btn'; btn.innerText = opt; btn.onclick = () => checkAnswer(i); container.appendChild(btn); });
+
+});
+
+},
+
+{
+threshold: 0.1
 }
-function checkAnswer(chosen) { if (chosen === quizData[currentQuizIdx].a) quizPoints += 10; document.getElementById('quiz-score').innerText = quizPoints; currentQuizIdx = (currentQuizIdx + 1) % quizData.length; loadQuiz(); }
-loadQuiz();
-let dronePos = 50, dronePoints = 0;
-function moveDrone(dir) { dronePos += dir === 'left' ? -15 : 15; dronePos = Math.max(5, Math.min(85, dronePos)); document.getElementById('player-drone').style.left = `${dronePos}%`; }
-function spawnItem() {
-    const screen = document.getElementById('drone-screen'); if (!screen) return;
-    const item = document.createElement('div'); item.className = 'item-drop'; item.innerText = Math.random() > 0.4 ? '🐛' : '💧';
-    item.style.left = `${Math.random() * 85 + 5}%`; item.style.top = '0px'; screen.appendChild(item);
-    let fall = setInterval(() => {
-        let top = parseInt(item.style.top) || 0;
-        if (top > 150) {
-            let itemLeft = parseFloat(item.style.left);
-            if (Math.abs(itemLeft - dronePos) < 15) { dronePoints += item.innerText === '🐛' ? 15 : 5; document.getElementById('drone-score').innerText = dronePoints; }
-            clearInterval(fall); item.remove();
-        } else { item.style.top = `${top + 8}px`; }
-    }, 50);
-}
-setInterval(spawnItem, 2500);
-const icons = ['🌱', '🚜', '☀️', '💧', '🌱', '🚜', '☀️', '💧']; let flippedCards = [], matchedPairs = 0;
-function initMemoryGame() {
-    const board = document.getElementById('memory-board'); if (!board) return; board.innerHTML = ''; flippedCards = []; matchedPairs = 0; document.getElementById('memo-score').innerText = '0';
-    let shuffled = [...icons].sort(() => Math.random() - 0.5);
-    shuffled.forEach((icon, idx) => { const card = document.createElement('div'); card.className = 'memo-card'; card.dataset.icon = icon; card.dataset.id = idx; card.onclick = () => flipCard(card); board.appendChild(card); });
-}
-function flipCard(card) {
-    if (flippedCards.length >= 2 || card.classList.contains('flipped') || card.classList.contains('matched')) return;
-    card.classList.add('flipped'); card.innerText = card.dataset.icon; flippedCards.push(card);
-    if (flippedCards.length === 2) {
-        setTimeout(() => {
-            if (flippedCards[0].dataset.icon === flippedCards[1].dataset.icon) { flippedCards.forEach(c => c.classList.add('matched')); matchedPairs++; document.getElementById('memo-score').innerText = matchedPairs; }
-            else { flippedCards.forEach(c => { c.classList.remove('flipped'); c.innerText = ''; }); } flippedCards = [];
-        }, 800);
-    }
-}
-initMemoryGame();
-let soilMoistureLevel = 50, smartIrrPoints = 0, isPumpActive = false;
-function togglePump() { isPumpActive = !isPumpActive; const btn = document.getElementById('pump-toggle'); if (btn) { btn.innerText = isPumpActive ? "DESLIGAR VÁLVULA 🛑" : "LIGAR VÁLVULA 💦"; btn.className = isPumpActive ? "btn-pump on" : "btn-pump"; } }
+
+);
+
+document
+.querySelectorAll(
+".card,.game-card,.stat-card"
+)
+.forEach((el) => {
+
+el.style.opacity = 0;
+
+el.style.transform =
+"translateY(50px)";
+
+el.style.transition =
+"all .8s ease";
+
+observer.observe(el);
+
+});
+
+// =========================
+// EFEITO TÍTULO
+// =========================
+
+const titulo =
+document.querySelector(
+".hero h1"
+);
+
+let brilho = 0;
+
 setInterval(() => {
-    soilMoistureLevel += isPumpActive ? 6 : -4; soilMoistureLevel = Math.max(0, Math.min(100, soilMoistureLevel));
-    const gauge = document.getElementById('water-fill');
-    if (gauge) {
-        gauge.style.width = `${soilMoistureLevel}%`; document.getElementById('moisture-text').innerText = `Umidade Atual: ${soilMoistureLevel}%`; const stateMessage = document.getElementById('pump-status');
-        if (soilMoistureLevel >= 65 && soilMoistureLevel <= 85) { smartIrrPoints += 5; document.getElementById('irr-score').innerText = smartIrrPoints; stateMessage.innerText = "Status: Ideal"; stateMessage.style.color = "#00b894"; }
-        else { stateMessage.innerText = "Status: Crítico"; stateMessage.style.color = "#ff7675"; }
-    }
-}, 800);
-function updateEco() {
-    const t = parseInt(document.getElementById('slide-trees').value); const p = parseInt(document.getElementById('slide-pest').value);
-    document.getElementById('val-trees').innerText = t; document.getElementById('val-pest').innerText = p;
-    let balance = 100 - (Math.abs(t - 7) * 8) - (Math.abs(p - 2) * 8); balance = Math.max(0, Math.min(100, balance));
-    document.getElementById('eco-score').innerText = `${balance}%`; const fill = document.getElementById('health-fill'); fill.style.width = `${balance}%`;
-    const msg = document.getElementById('health-msg');
-    if (balance > 75) { msg.innerText = "Perfeito!"; msg.style.color = "#00b894"; } else if (balance > 45) { msg.innerText = "Instável"; msg.style.color = "#fdcb6e"; } else { msg.innerText = "Colapso!"; msg.style.color = "#ff7675"; }
+
+brilho++;
+
+titulo.style.textShadow =
+`0 0 ${
+10 + brilho % 20
+}px rgba(34,197,94,.7)`;
+
+}, 150);
+
+// =========================
+// PARTICULAS
+// =========================
+
+function criarParticula() {
+
+const p =
+document.createElement(
+"div"
+);
+
+p.innerHTML = "🌱";
+
+p.style.position =
+"fixed";
+
+p.style.left =
+Math.random() * 100 +
+"vw";
+
+p.style.bottom =
+"-30px";
+
+p.style.fontSize =
+"18px";
+
+p.style.pointerEvents =
+"none";
+
+p.style.zIndex = 1;
+
+document.body.appendChild(
+p
+);
+
+let pos = -30;
+
+const anim =
+setInterval(() => {
+
+pos += 2;
+
+p.style.bottom =
+pos + "px";
+
+if (pos > window.innerHeight + 50) {
+
+clearInterval(anim);
+
+p.remove();
+
 }
-updateEco();
-let carbonTotal = 0;
-function spawnTree() {
-    const zone = document.getElementById('click-zone'); if (!zone) return;
-    const tree = document.createElement('div'); tree.className = 'tree-pop'; tree.innerText = '🌳'; tree.style.left = `${Math.random() * 80 + 5}%`; tree.style.top = `${Math.random() * 60 + 10}%`;
-    tree.onclick = () => { carbonTotal += 25; document.getElementById('carbon-val').innerText = carbonTotal; tree.remove(); };
-    zone.appendChild(tree); setTimeout(() => tree.remove(), 2000);
+
+}, 30);
+
 }
-setInterval(spawnTree, 1400);
-const colors = ['yellow', 'blue'];
-function addNote() {
-    const input = document.getElementById('mural-input'); if (!input || !input.value.trim()) return;
-    const grid = document.getElementById('mural-grid'); const note = document.createElement('div');
-    note.className = `note ${colors[Math.floor(Math.random() * colors.length)]}`; note.innerText = input.value;
-    grid.appendChild(note); input.value = '';
-}
+
+setInterval(
+criarParticula,
+2500
+);
+
+// =========================
+// MENSAGEM FINAL
+// =========================
+
+console.log(
+"Agrinho 2026 carregado com sucesso 🌱"
+);
