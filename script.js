@@ -1,201 +1,284 @@
 /**
- * AGROECOHUB PRO - SCRIPT DE ALTA PERFORMANCE
- * Desenvolvido para máxima interatividade e fluidez.
+ * ==========================================================================
+ * AGROECOHUB PRO - ARQUITETURA DE JOGOS E INTERATIVIDADE
+ * Motores independentes para cada minigame, otimizados para evitar memory leaks.
+ * ==========================================================================
  */
 
-// 1. GERENCIAMENTO DE TEMA E AMBIENTE
-const toggleTheme = () => {
-    const body = document.body;
-    const currentTheme = body.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    body.setAttribute('data-theme', newTheme);
-    document.getElementById('theme-toggle').innerText = newTheme === 'light' ? '✨ Tema Claro' : '🌑 Tema Escuro';
-};
-
-// 2. SISTEMA DE PARTÍCULAS DE FUNDO
-const canvas = document.getElementById('particle-canvas');
-for (let i = 0; i < 15; i++) {
-    const p = document.createElement('div');
-    p.style.position = 'absolute';
-    p.style.left = Math.random() * 100 + 'vw';
-    p.style.top = Math.random() * 100 + 'vh';
-    p.style.width = '10px';
-    p.style.height = '10px';
-    p.style.background = 'var(--primary)';
-    p.style.borderRadius = '50%';
-    p.style.opacity = '0.4';
-    p.style.animation = `float ${Math.random() * 5 + 5}s infinite linear`;
-    canvas.appendChild(p);
+// 1. CHAVEADOR DE AMBIENTE (TEMA GLOBAL)
+function toggleTheme() {
+    const rootBody = document.body;
+    const activeTheme = rootBody.getAttribute('data-theme');
+    const targetTheme = activeTheme === 'light' ? 'dark' : 'light';
+    rootBody.setAttribute('data-theme', targetTheme);
+    document.getElementById('theme-toggle').innerText = targetTheme === 'light' ? '✨ Modo Claro' : '🌑 Modo Escuro';
 }
 
-// 3. BANCO DE DADOS DE CURIOSIDADES
-const factDB = [
-    "🚜 O Brasil é líder mundial em plantio direto, técnica que preserva a umidade do solo e evita erosão.",
-    "🐝 As abelhas aumentam em até 30% a produtividade da soja através da polinização natural.",
-    "🛰️ Sensores de satélite podem medir o nível de clorofila das plantas a 700km de distância.",
-    "🧬 A tecnologia CRISPR permite criar milho resistente à seca sem usar genes de outras espécies.",
-    "🦌 Corredores ecológicos ajudam a onça-parda a transitar por fazendas, controlando javalis naturalmente."
-];
-const updateFact = () => {
-    const box = document.getElementById('dynamic-fact');
-    box.style.opacity = 0;
-    setTimeout(() => {
-        box.innerText = factDB[Math.floor(Math.random() * factDB.length)];
-        box.style.opacity = 1;
-    }, 300);
-};
+// 2. SISTEMA DE PARTÍCULAS SINTÉTICAS DE FUNDO
+const particleBox = document.getElementById('particle-canvas');
+if (particleBox) {
+    for (let index = 0; index < 12; index++) {
+        const drop = document.createElement('div');
+        drop.style.position = 'absolute';
+        drop.style.left = Math.random() * 100 + 'vw';
+        drop.style.top = Math.random() * 100 + 'vh';
+        drop.style.width = '8px';
+        drop.style.height = '8px';
+        drop.style.background = 'rgba(0, 184, 148, 0.3)';
+        drop.style.borderRadius = '50%';
+        drop.style.pointerEvents = 'none';
+        particleBox.appendChild(drop);
+    }
+}
 
-// 4. JOGO 1: QUIZ PROFISSIONAL
-const quizQuestions = [
-    {q: "O que é Agricultura de Precisão?", o: ["Plantar muito em pouco espaço", "Usar tecnologia para aplicar recursos no local exato", "Plantar apenas frutas"], a: 1},
-    {q: "Como as árvores ajudam as plantações?", o: ["Dando sombra e atraindo polinizadores", "Ocupando espaço desnecessário", "Gastando água"], a: 0},
-    {q: "Qual técnica evita a erosão do solo?", o: ["Arado pesado", "Queimada controlada", "Plantio Direto sobre palhada"], a: 2}
+// 3. ENGENHO DE CURIOSIDADES CIENTÍFICAS
+const agroFacts = [
+    "🚜 O Plantio Direto mantém resíduos vegetais protegendo o solo, o que reduz a perda de nutrientes em até 90%.",
+    "🐝 Polinizadores ativos geram ganhos produtivos de bilhões de dólares anualmente em plantações globais.",
+    "🛰️ Câmeras termais acopladas em órbitas analisam o nível exato de hidratação celular das lavouras de soja.",
+    "🧬 Ferramentas como o CRISPR apenas sintonizam os genes nativos da própria semente para resistirem ao estresse climático.",
+    "🦠 Fungos biológicos microscópicos digerem carcaças de pragas, agindo como guardiões invisíveis da terra."
 ];
-let qIndex = 0, qScore = 0;
-const loadQuiz = () => {
+
+function updateFact() {
+    const textContainer = document.getElementById('dynamic-fact');
+    if (textContainer) {
+        textContainer.style.transform = 'scale(0.98)';
+        setTimeout(() => {
+            textContainer.innerText = agroFacts[Math.floor(Math.random() * agroFacts.length)];
+            textContainer.style.transform = 'scale(1)';
+        }, 150);
+    }
+}
+
+// 4. MOTOR DO JOGO 01: QUIZ CIENTÍFICO
+const quizPool = [
+    {q: "O que caracteriza a Agricultura 5.0?", o: ["Uso massivo de tração animal", "Integração total de robótica, IA e dados em nuvem", "Foco apenas em grandes plantações de monocultura"], a: 1},
+    {q: "Como a Fixação Biológica de Nitrogênio (FBN) ajuda a terra?", o: ["Usando bactérias nativas para nutrir a raiz sem poluir", "Encharcando os lençóis freáticos com minerais sintéticos", "Compactando as camadas mais profundas do solo"], a: 0},
+    {q: "Qual a função da rotação de culturas?", o: ["Esteticamente deixar a fazenda bonita", "Variar espécies para quebrar o ciclo de pragas e repor minerais", "Aumentar a erosão da terra de forma acelerada"], a: 1}
+];
+let activeQuizIndex = 0, totalQuizScore = 0;
+
+function renderQuiz() {
     const qBox = document.getElementById('question-box');
     const oBox = document.getElementById('options-box');
-    if (qIndex >= quizQuestions.length) {
-        qBox.innerText = "🏆 Quiz Finalizado!";
-        oBox.innerHTML = `<button class='btn-primary' onclick='resetQuiz()'>Reiniciar</button>`;
+    const qMsg = document.getElementById('quiz-msg');
+    
+    if (qMsg) qMsg.style.display = 'none';
+    if (activeQuizIndex >= quizPool.length) {
+        qBox.innerText = "🏆 Certificação Concluída!";
+        oBox.innerHTML = `<button class='btn-primary' style='width:100%' onclick='restartQuiz()'>Refazer Avaliação</button>`;
         return;
     }
-    const item = quizQuestions[qIndex];
-    qBox.innerText = item.q;
-    oBox.innerHTML = item.o.map((opt, i) => `<button class='opt-btn' onclick='checkQuiz(${i})'>${opt}</button>`).join('');
-    document.getElementById('quiz-p').innerText = `Questão: ${qIndex + 1}/3`;
-};
-const checkQuiz = (i) => {
-    if (i === quizQuestions[qIndex].a) { qScore += 100; document.getElementById('quiz-s').innerText = `Score: ${qScore}`; }
-    qIndex++; setTimeout(loadQuiz, 500);
-};
-const resetQuiz = () => { qIndex = 0; qScore = 0; loadQuiz(); };
-loadQuiz();
-
-// 5. JOGO 2: COLETOR DRONE (OTIMIZADO)
-let droneX = 50, colScore = 0, gameActive = false, timerCount = 30;
-function moveLeft() { if(!gameActive) return; droneX = Math.max(5, droneX - 5); updateDrone(); }
-function moveRight() { if(!gameActive) return; droneX = Math.min(95, droneX + 5); updateDrone(); }
-function updateDrone() { document.getElementById('player-drone').style.left = droneX + '%'; }
-function initCollector() {
-    gameActive = true; colScore = 0; timerCount = 30;
-    document.getElementById('start-overlay').style.display = 'none';
-    const gameLoop = setInterval(() => {
-        timerCount--;
-        document.getElementById('col-t').innerText = `Tempo: ${timerCount}s`;
-        if(timerCount <= 0) { clearInterval(gameLoop); gameActive = false; document.getElementById('start-overlay').style.display = 'flex'; }
-        spawnAgroItem();
-    }, 1000);
-}
-function spawnAgroItem() {
-    if(!gameActive) return;
-    const item = document.createElement('div');
-    const isGood = Math.random() > 0.3;
-    item.innerText = isGood ? '🌱' : '⚠️';
-    item.style.position = 'absolute';
-    item.style.left = Math.random() * 90 + '%';
-    item.style.top = '-20px';
-    item.style.fontSize = '1.5rem';
-    item.style.transition = 'top 2s linear';
-    document.getElementById('collector-arena').appendChild(item);
-    setTimeout(() => item.style.top = '250px', 100);
-    setTimeout(() => {
-        const xPos = parseFloat(item.style.left);
-        if(Math.abs(xPos - droneX) < 10) {
-            colScore += isGood ? 20 : -50;
-            document.getElementById('col-s').innerText = `Pontos: ${colScore}`;
-        }
-        item.remove();
-    }, 2100);
+    const currentQuestion = quizPool[activeQuizIndex];
+    qBox.innerText = currentQuestion.q;
+    oBox.innerHTML = currentQuestion.o.map((option, idx) => `<button class='opt-btn' onclick='evalQuiz(${idx})'>${option}</button>`).join('');
+    document.getElementById('quiz-p').innerText = `Questão: ${activeQuizIndex + 1}/3`;
 }
 
-// 6. JOGO 4: IRRIGAÇÃO SMART
-let moisture = 50, pumpOn = false, irrPoints = 0;
-setInterval(() => {
-    moisture += pumpOn ? 4 : -2;
-    moisture = Math.max(0, Math.min(100, moisture));
-    document.getElementById('water-fill').style.strokeDasharray = `${moisture}, 100`;
-    document.getElementById('moisture-text').innerText = `${moisture}%`;
-    if(moisture > 65 && moisture < 85) {
-        irrPoints += 10;
-        document.getElementById('irr-score').innerText = irrPoints;
+function evalQuiz(chosenIdx) {
+    const feedback = document.getElementById('quiz-msg');
+    feedback.style.display = 'block';
+    if (chosenIdx === quizPool[activeQuizIndex].a) {
+        totalQuizScore += 100;
+        feedback.innerText = "✅ Excelente! Resposta correta.";
+        feedback.style.color = "var(--primary)";
+    } else {
+        feedback.innerText = "❌ Incorreto. Revise o material de apoio!";
+        feedback.style.color = "var(--danger)";
     }
-}, 800);
-const togglePump = () => {
-    pumpOn = !pumpOn;
-    document.getElementById('pump-toggle').innerText = pumpOn ? 'PARAR BOMBA 🛑' : 'LIGAR BOMBA 💧';
-    document.getElementById('pump-status').innerText = pumpOn ? 'REGANDO...' : 'DESLIGADA';
-};
+    document.getElementById('quiz-s').innerText = `Score: ${totalQuizScore}`;
+    activeQuizIndex++;
+    setTimeout(renderQuiz, 1000);
+}
 
-// 7. JOGO 5: EQUILIBRIO
-const runSim = () => {
-    const t = document.getElementById('t-slider').value;
-    const f = document.getElementById('f-slider').value;
-    document.getElementById('t-label').innerText = `${t}%`;
-    document.getElementById('f-label').innerText = `${f}%`;
-    const health = 100 - Math.abs(t - f);
-    document.getElementById('health-fill').style.width = health + '%';
-    const msg = document.getElementById('health-msg');
-    if(health > 85) { msg.innerText = "💎 Sinergia Total! Produção e Vida em harmonia."; msg.style.color = "#00b894"; }
-    else if(t > f) { msg.innerText = "🚨 Alerta: Excesso de tecnologia sem árvores causa pragas."; msg.style.color = "#ff7675"; }
-    else { msg.innerText = "📉 Alerta: Baixa produção. A fazenda não é sustentável financeiramente."; msg.style.color = "#0984e3"; }
-};
+function restartQuiz() { activeQuizIndex = 0; totalQuizScore = 0; document.getElementById('quiz-s').innerText = "Score: 0"; renderQuiz(); }
+renderQuiz();
 
-// 8. JOGO 6: CARBON CLICKER
-let carbonTotal = 0;
-const startCarbonGame = () => {
-    document.getElementById('btn-carbon').style.display = 'none';
-    const arena = document.getElementById('carbon-arena');
-    const playCarbon = setInterval(() => {
-        const tree = document.createElement('div');
-        tree.className = 'tree-pop';
-        tree.innerText = '🌳';
-        tree.style.left = Math.random() * 80 + 10 + '%';
-        tree.style.top = Math.random() * 60 + 20 + '%';
-        tree.onclick = () => {
-            carbonTotal += 5;
-            document.getElementById('carbon-counter').innerText = `${carbonTotal}kg Capturados`;
-            tree.remove();
-        };
-        arena.appendChild(tree);
-        setTimeout(() => tree.remove(), 1500);
+// 5. MOTOR DO JOGO 02: COLETOR DRONE AUTÔNOMO
+let dronePositionX = 50, dronePoints = 0, isGameRunning = false, remainingTime = 30, droneInterval, dropInterval;
+
+function moveLeft() { if(isGameRunning) { dronePositionX = Math.max(8, dronePositionX - 8); updateDroneUI(); } }
+function moveRight() { if(isGameRunning) { dronePositionX = Math.min(92, dronePositionX + 8); updateDroneUI(); } }
+function stopMove() {} // Reservado para compatibilidade de eventos touch
+function updateDroneUI() { document.getElementById('player-drone').style.left = dronePositionX + '%'; }
+
+function initCollector() {
+    isGameRunning = true; dronePoints = 0; remainingTime = 30;
+    document.getElementById('start-overlay').style.display = 'none';
+    document.getElementById('col-s').innerText = "Pontos: 0";
+    
+    droneInterval = setInterval(() => {
+        remainingTime--;
+        document.getElementById('col-t').innerText = `Tempo: ${remainingTime}s`;
+        if(remainingTime <= 0) {
+            clearInterval(droneInterval);
+            clearInterval(dropInterval);
+            isGameRunning = false;
+            document.getElementById('start-overlay').style.display = 'flex';
+        }
     }, 1000);
-    setTimeout(() => { clearInterval(playCarbon); document.getElementById('btn-carbon').style.display = 'block'; }, 20000);
-};
+    dropInterval = setInterval(createFallingTarget, 800);
+}
 
-// 9. MURAL INTERATIVO
-const addPostIt = () => {
-    const input = document.getElementById('mural-input');
-    if(input.value.trim() === "") return;
-    const note = document.createElement('div');
-    note.className = `note ${Math.random() > 0.5 ? 'yellow' : 'blue'}`;
-    note.innerText = input.value;
-    document.getElementById('mural-canvas').prepend(note);
-    input.value = "";
-};
+function createFallingTarget() {
+    if(!isGameRunning) return;
+    const target = document.createElement('div');
+    const state = Math.random() > 0.4;
+    target.className = 'item-drop';
+    target.innerText = state ? '🌱' : '⚠️';
+    let targetX = Math.random() * 80 + 10;
+    target.style.left = targetX + '%';
+    target.style.top = '0px';
+    document.getElementById('collector-arena').appendChild(target);
 
-// INICIALIZAÇÃO
-window.onload = () => {
-    runSim();
-    initMemo(); // Função da memória opcional, mas recomendada expandir se necessário.
-};
+    let verticalPos = 0;
+    let fallbackLoop = setInterval(() => {
+        verticalPos += 6;
+        target.style.top = verticalPos + 'px';
+        if(verticalPos > 180 && verticalPos < 210 && Math.abs(targetX - dronePositionX) < 12) {
+            dronePoints += state ? 25 : -40;
+            document.getElementById('col-s').innerText = `Pontos: ${dronePoints}`;
+            clearInterval(fallbackLoop);
+            target.remove();
+        }
+        if(verticalPos > 220) { clearInterval(fallbackLoop); target.remove(); }
+    }, 25);
+}
 
-// Função básica de memória para não quebrar o HTML
-function initMemo() {
-    const board = document.getElementById('memory-board');
-    const icons = ['🌾','🌾','🚜','🚜','🐝','🐝','🧪','🧪'];
-    icons.sort(() => Math.random() - 0.5).forEach(icon => {
-        const card = document.createElement('div');
-        card.style.background = 'var(--accent)';
-        card.style.borderRadius = '8px';
-        card.style.height = '50px';
-        card.style.display = 'flex';
-        card.style.alignItems = 'center';
-        card.style.justifyContent = 'center';
-        card.style.cursor = 'pointer';
-        card.innerText = '?';
-        card.onclick = () => { card.innerText = icon; card.style.background = 'white'; };
-        board.appendChild(card);
+// 6. MOTOR DO JOGO 03: TABULEIRO DE PRÁTICAS CONSERVACIONISTAS
+const memoIcons = ['🐝','🐝','🚜','🚜','🌱','🌱','🛰️','🛰️'];
+let selectedCards = [];
+
+function generateMemoryGrid() {
+    const table = document.getElementById('memory-board');
+    if (!table) return;
+    table.innerHTML = '';
+    selectedCards = [];
+    
+    const shuffled = [...memoIcons].sort(() => Math.random() - 0.5);
+    shuffled.forEach((symbol) => {
+        const itemCard = document.createElement('div');
+        itemCard.className = 'memo-card';
+        itemCard.dataset.symbol = symbol;
+        itemCard.innerText = '?';
+        
+        itemCard.onclick = () => {
+            if(selectedCards.length < 2 && !itemCard.classList.contains('flipped') && !itemCard.classList.contains('matched')) {
+                itemCard.classList.add('flipped');
+                itemCard.innerText = symbol;
+                selectedCards.push(itemCard);
+                if(selectedCards.length === 2) setTimeout(verifyMemoryMatch, 400);
+            }
+        };
+        table.appendChild(itemCard);
     });
 }
-function resetMemory() { document.getElementById('memory-board').innerHTML = ''; initMemo(); }
+
+function verifyMemoryMatch() {
+    if(selectedCards[0].dataset.symbol === selectedCards[1].dataset.symbol) {
+        selectedCards[0].classList.add('matched');
+        selectedCards[1].classList.add('matched');
+    } else {
+        selectedCards[0].classList.remove('flipped'); selectedCards[0].innerText = '?';
+        selectedCards[1].classList.remove('flipped'); selectedCards[1].innerText = '?';
+    }
+    selectedCards = [];
+}
+function resetMemory() { generateMemoryGrid(); }
+generateMemoryGrid();
+
+// 7. MOTOR DO JOGO 04: REGULADOR HÍDRICO INTELIGENTE
+let soilMoistureLevel = 50, isPumpActive = false, smartIrrPoints = 0;
+
+setInterval(() => {
+    soilMoistureLevel += isPumpActive ? 5 : -3;
+    soilMoistureLevel = Math.max(0, Math.min(100, soilMoistureLevel));
+    
+    const gauge = document.getElementById('water-fill');
+    if (gauge) {
+        gauge.style.strokeDasharray = `${soilMoistureLevel}, 100`;
+        document.getElementById('moisture-text').innerText = `${soilMoistureLevel}%`;
+        const stateMessage = document.getElementById('pump-status');
+        
+        if(soilMoistureLevel >= 65 && soilMoistureLevel <= 85) {
+            smartIrrPoints += 5;
+            document.getElementById('irr-score').innerText = smartIrrPoints;
+            stateMessage.style.color = "var(--primary)";
+        } else {
+            stateMessage.style.color = "var(--danger)";
+        }
+    }
+}, 800);
+
+function togglePump() {
+    isPumpActive = !isPumpActive;
+    const triggerBtn = document.getElementById('pump-toggle');
+    triggerBtn.innerText = isPumpActive ? 'PARAR VALVULA 🛑' : 'LIGAR VALVULA 💦';
+    triggerBtn.className = isPumpActive ? 'btn-pump on' : 'btn-pump';
+}
+
+// 8. MOTOR DO JOGO 05: SIMULADOR DE SINERGIA ECO
+function runSim() {
+    const techValue = parseInt(document.getElementById('t-slider').value);
+    const forestValue = parseInt(document.getElementById('f-slider').value);
+    
+    document.getElementById('t-label').innerText = `${techValue}%`;
+    document.getElementById('f-label').innerText = `${forestValue}%`;
+    
+    const operationalStability = 100 - Math.abs(techValue - forestValue);
+    document.getElementById('health-fill').style.width = operationalStability + '%';
+    const reportLabel = document.getElementById('health-msg');
+    
+    if(operationalStability > 85) { reportLabel.innerText = "💎 Sinergia Absoluta! Propriedade Sustentável."; reportLabel.style.color = "var(--primary)"; }
+    else if(techValue > forestValue) { reportLabel.innerText = "🚨 Alerta: Déficit de Mata Ciliar detectado."; reportLabel.style.color = "var(--danger)"; }
+    else { reportLabel.innerText = "📉 Alerta: Retorno financeiro insuficiente para o sustento."; reportLabel.style.color = "var(--secondary)"; }
+}
+
+// 9. MOTOR DO JOGO 06: CENTRAL DE SEQUESTRO DE CO2
+let capturedCarbonKilos = 0, captureActive = false;
+
+function startCarbonGame() {
+    if(captureActive) return;
+    captureActive = true;
+    document.getElementById('btn-carbon').style.display = 'none';
+    const area = document.getElementById('carbon-arena');
+    
+    const spawnCycle = setInterval(() => {
+        const sapling = document.createElement('div');
+        sapling.className = 'tree-pop';
+        sapling.innerText = '🌳';
+        sapling.style.left = Math.random() * 85 + 5 + '%';
+        sapling.style.top = Math.random() * 65 + 15 + '%';
+        
+        sapling.onclick = () => {
+            capturedCarbonKilos += 10;
+            document.getElementById('carbon-counter').innerText = `${capturedCarbonKilos}kg CO2 Retidos`;
+            sapling.remove();
+        };
+        area.appendChild(sapling);
+        setTimeout(() => { if(sapling) sapling.remove(); }, 1200);
+    }, 900);
+
+    setTimeout(() => {
+        clearInterval(spawnCycle);
+        captureActive = false;
+        document.getElementById('btn-carbon').style.display = 'block';
+    }, 15000);
+}
+
+// 10. MURAL COLETIVO DINÂMICO
+function addPostIt() {
+    const userField = document.getElementById('mural-input');
+    if(!userField || userField.value.trim() === "") return;
+    
+    const postIt = document.createElement('div');
+    postIt.className = `note ${Math.random() > 0.5 ? 'yellow' : 'blue'}`;
+    postIt.innerText = userField.value;
+    
+    const board = document.getElementById('mural-canvas');
+    if (board) board.prepend(postIt);
+    userField.value = "";
+}
+
+window.onload = () => { runSim(); };
