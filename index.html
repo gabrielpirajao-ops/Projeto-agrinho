@@ -5,418 +5,352 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agro Forte, Futuro Sustentável</title>
     <style>
-        /* --- VARIÁVEIS DE CORES (SISTEMA DE TEMAS) --- */
+        /* --- VARIÁVEIS DE CORES VIBRANTES --- */
         :root {
-            --primary: #2c5e3b; /* Verde Agro */
-            --secondary: #e67e22; /* Laranja Produção */
-            --bg-light: #f4f9f4;
-            --text-dark: #2c3e50;
+            --primary: #1e4620; 
+            --secondary: #ff7675; 
+            --accent: #fdcb6e; 
+            --bg-gradient: linear-gradient(135deg, #e8f5e9 0%, #ffe0b2 100%);
             --card-bg: #ffffff;
-            --accent: #27ae60;
+            --text-dark: #2d3436;
+            --success: #2ecc71;
         }
 
         [data-theme="eco"] {
-            --primary: #16a085; /* Verde Água Sustentável */
-            --secondary: #2ecc71; /* Verde Vivo */
-            --bg-light: #e8f8f5;
-            --text-dark: #111;
+            --primary: #0984e3; 
+            --secondary: #00b894; 
+            --accent: #eccc68; 
+            --bg-gradient: linear-gradient(135deg, #e0f7fa 0%, #e8f5e9 100%);
             --card-bg: #ffffff;
-            --accent: #a3e4d7;
+            --text-dark: #2d3436;
+            --success: #00b894;
         }
 
-        /* --- RESET E ESTILOS GERAIS --- */
+        /* --- RESET E DESIGN GERAL --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
             transition: all 0.3s ease;
         }
 
         body {
-            background-color: var(--bg-light);
+            background: var(--bg-gradient);
             color: var(--text-dark);
             overflow-x: hidden;
         }
 
-        /* --- NAVBAR INTERATIVA --- */
+        /* --- ANIMAÇÃO DE FUNDO (PARTÍCULAS) --- */
+        .particles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            display: block;
+            pointer-events: none;
+            animation: float 10s infinite linear;
+            opacity: 0.3;
+            font-size: 1.5rem;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(105vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-5vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- NAVBAR --- */
         nav {
             position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 15px 50px;
+            top: 0; width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             z-index: 1000;
         }
 
-        .logo {
-            font-weight: bold;
-            font-size: 1.4rem;
-            color: var(--primary);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 600;
-        }
-
-        .nav-links a:hover {
-            color: var(--secondary);
-        }
-
+        .logo { font-weight: 800; font-size: 1.5rem; color: var(--primary); }
+        .nav-links { display: flex; list-style: none; gap: 15px; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 600; padding: 5px 10px; border-radius: 8px; }
+        .nav-links a:hover { background: var(--accent); color: #000; }
+        
         .btn-theme {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
+            background: var(--primary); color: white; border: none;
+            padding: 8px 15px; border-radius: 20px; cursor: pointer; font-weight: bold;
         }
 
         /* --- HERO HEADER --- */
         header {
-            height: 100vh;
-            background: linear-gradient(135deg, rgba(44, 94, 59, 0.8), rgba(230, 126, 34, 0.6)), url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: white;
-            padding: 20px;
+            height: 80vh;
+            background: linear-gradient(135deg, rgba(30,70,32,0.85), rgba(253,203,110,0.4)), url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; color: white; padding: 20px;
         }
 
-        header h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            animation: fadeInDown 1s ease;
-        }
-
-        header p {
-            font-size: 1.5rem;
-            max-width: 800px;
-            margin-bottom: 30px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-            animation: fadeInUp 1s ease;
-        }
+        header h1 { font-size: 3.5rem; font-weight: 800; text-shadow: 3px 3px 6px rgba(0,0,0,0.4); margin-bottom: 15px; }
+        header p { font-size: 1.3rem; max-width: 700px; margin-bottom: 25px; text-shadow: 1px 1px 3px rgba(0,0,0,0.4); }
 
         .btn-main {
-            background: var(--secondary);
-            color: white;
-            padding: 15px 40px;
-            border: none;
-            border-radius: 30px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            background: var(--secondary); color: white; padding: 12px 35px;
+            border: none; border-radius: 50px; font-size: 1.1rem; font-weight: bold;
+            cursor: pointer; text-decoration: none; box-shadow: 0 5px 15px rgba(255,118,117,0.4);
+        }
+        .btn-main:hover { transform: translateY(-3px) scale(1.05); }
+
+        /* --- SEÇÕES INTERATIVAS --- */
+        .section { padding: 60px 20px; max-width: 1100px; margin: 0 auto; text-align: center; }
+        .section h2 { font-size: 2.3rem; color: var(--primary); margin-bottom: 40px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- MINI GAME: QUIZ SUSTENTÁVEL --- */
+        .quiz-container {
+            background: var(--card-bg); padding: 30px; border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08); text-align: left; max-width: 650px; margin: 0 auto;
+            border: 4px solid var(--accent);
         }
 
-        .btn-main:hover {
-            transform: scale(1.05);
-            background: #d35400;
+        .quiz-header { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 20px; color: var(--primary); }
+        .quiz-options { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+        
+        .quiz-btn {
+            background: #f1f2f6; border: 2px solid #dfe4ea; padding: 12px 20px;
+            border-radius: 12px; cursor: pointer; font-size: 1rem; font-weight: 600; text-align: left;
         }
+        .quiz-btn:hover { background: var(--accent); transform: translateX(5px); }
 
-        /* --- SEÇÃO PILARES (CARDS FLIP INTERATIVOS) --- */
-        .section {
-            padding: 80px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
+        /* --- SIMULADOR E QUADRO DE MEDALHAS --- */
+        .dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 30px; margin-top: 20px; }
+        @media (min-width: 768px) { .dashboard-grid { grid-template-columns: 2fr 1fr; } }
 
-        .section h2 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 50px;
-            position: relative;
-        }
+        .box { background: var(--card-bg); padding: 30px; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.05); text-align: left; }
+        .slider-group { margin-bottom: 20px; }
+        .slider { width: 100%; height: 12px; border-radius: 6px; outline: none; margin-top: 8px; }
 
-        .grid-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
+        .medal-card { display: flex; align-items: center; gap: 15px; margin-top: 15px; background: #f9f9f9; padding: 10px; border-radius: 12px; }
+        .medal-icon { font-size: 2.5rem; filter: grayscale(100%); }
+        .medal-acquired { filter: grayscale(0%) drop-shadow(0px 0px 5px gold); }
 
-        /* Efeito Flip Card */
-        .flip-card {
-            background-color: transparent;
-            width: 100%;
-            height: 350px;
-            perspective: 1000px;
-        }
+        /* --- CARDS FLIP --- */
+        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .flip-card { height: 280px; perspective: 1000px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
+        .flip-card-front { background: var(--card-bg); border: 3px solid var(--primary); }
+        .flip-card-back { background: var(--primary); color: white; transform: rotateY(180deg); }
 
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            border-radius: 15px;
-        }
-
-        .flip-card:hover .flip-card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .flip-card-front, .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            border-radius: 15px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .flip-card-front {
-            background: var(--card-bg);
-            color: var(--text-dark);
-            border: 2px solid var(--primary);
-        }
-
-        .flip-card-front h3 {
-            margin-top: 15px;
-            color: var(--primary);
-        }
-
-        .flip-card-back {
-            background: var(--primary);
-            color: white;
-            transform: rotateY(180deg);
-        }
-
-        .icon-large {
-            font-size: 4rem;
-            color: var(--secondary);
-        }
-
-        /* --- SIMULADOR INTERATIVO --- */
-        .simulador-box {
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            max-width: 700px;
-            margin: 0 auto;
-            text-align: left;
-        }
-
-        .simulador-box label {
-            font-weight: bold;
-            display: block;
-            margin-top: 20px;
-        }
-
-        .slider {
-            width: 100%;
-            height: 15px;
-            border-radius: 5px;
-            background: #ddd;
-            outline: none;
-            margin-top: 10px;
-            -webkit-appearance: none;
-        }
-
-        .slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            background: var(--secondary);
-            cursor: pointer;
-        }
-
-        .resultado-painel {
-            margin-top: 30px;
-            padding: 20px;
-            background: var(--bg-light);
-            border-left: 5px solid var(--primary);
-            border-radius: 5px;
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            background: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 30px;
-            margin-top: 50px;
-        }
-
-        /* --- ANIMACÕES --- */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Responsividade */
-        @media (max-width: 768px) {
-            nav { padding: 15px 20px; flex-direction: column; gap: 10px; }
-            header h1 { font-size: 2.2rem; }
-            .grid-cards { grid-template-columns: 1fr; }
-        }
+        footer { background: #2d3436; color: white; text-align: center; padding: 25px; margin-top: 60px; }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
+    <div class="particles" id="particle-container"></div>
+
     <nav>
-        <div class="logo">🌱 AgroSustentável</div>
+        <div class="logo">🚀 AgroEco 2026</div>
         <ul class="nav-links">
             <li><a href="#inicio">Início</a></li>
-            <li><a href="#pilares">Pilares</a></li>
+            <li><a href="#game">Mini-Game</a></li>
             <li><a href="#simulador">Simulador</a></li>
-            <li><button class="btn-theme" onclick="toggleTheme()">Alternar Visão</button></li>
+            <li><a href="#pilares">Pilares</a></li>
+            <li><button class="btn-theme" onclick="toggleTheme()">Trocar Cor</button></li>
         </ul>
     </nav>
 
     <header id="inicio">
         <h1>Agro Forte, Futuro Sustentável</h1>
-        <p>O equilíbrio perfeito entre a potência da produção agrícola e a preservação do meio ambiente. Tecnologia e natureza caminhando juntas.</p>
-        <a href="#simulador" class="btn-main">Testar Simulador</a>
+        <p>Aprenda jogando! Descubra como a tecnologia e a preservação ambiental criam a super fazenda do futuro.</p>
+        <a href="#game" class="btn-main">Começar Desafio Jogo</a>
     </header>
 
-    <section class="section" id="pilares">
-        <h2>Nossos Pilares de Equilíbrio</h2>
-        <div class="grid-cards">
-            
-            <div class="flip-card">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">
-                        <div class="icon-large">🚜</div>
-                        <h3>Tecnologia de Ponta</h3>
-                        <p>Passe o mouse para saber mais</p>
-                    </div>
-                    <div class="flip-card-back">
-                        <h3>Produtividade Eficiente</h3>
-                        <p>Uso de drones, sensores IoT e tratores autônomos para maximizar a colheita reduzindo o desperdício de insumos e combustível.</p>
-                    </div>
-                </div>
+    <section class="section" id="game">
+        <h2>🎮 Mini-Game: Desafio Sustentável</h2>
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <span id="quiz-progress">Pergunta 1 de 3</span>
+                <span>Pontos: <span id="quiz-score">0</span></span>
             </div>
-
-            <div class="flip-card">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">
-                        <div class="icon-large">💧</div>
-                        <h3>Manejo Hídrico</h3>
-                        <p>Passe o mouse para saber mais</p>
-                    </div>
-                    <div class="flip-card-back">
-                        <h3>Preservação da Água</h3>
-                        <p>Sistemas de irrigação gota a gota e captação de água da chuva garantem que cada gota seja aproveitada sem secar nossos rios.</p>
-                    </div>
+            <h3 id="quiz-question">Carregando pergunta...</h3>
+            <div class="quiz-options" id="quiz-options">
                 </div>
-            </div>
-
-            <div class="flip-card">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">
-                        <div class="icon-large">🌳</div>
-                        <h3>Reflorestamento</h3>
-                        <p>Passe o mouse para saber mais</p>
-                    </div>
-                    <div class="flip-card-back">
-                        <h3>Crédito de Carbono</h3>
-                        <p>Integração Lavoura-Pecuária-Floresta (ILPF) que ajuda a reter o carbono no solo e recuperar áreas degradadas.</p>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </section>
 
-    <section class="section" style="background: rgba(0,0,0,0.02);" id="simulador">
-        <h2>Simulador de Impacto Agro-Ambiental</h2>
-        <p style="margin-bottom: 30px;">Ajuste os controles abaixo para ver como as decisões de manejo impactam a produção e a sustentabilidade.</p>
+    <section class="section" id="simulador" style="background: rgba(255,255,255,0.4); border-radius: 30px;">
+        <h2>📊 Painel de Controle da Fazenda</h2>
+        <p style="margin-bottom: 25px;">Gerencie os recursos e veja suas medalhas brilharem ao atingir metas ecológicas!</p>
         
-        <div class="simulador-box">
-            <label for="tecnologia">Nível de Tecnologia Aplicada: <span id="val-tec">50</span>%</label>
-            <input type="range" id="tecnologia" class="slider" min="0" max="100" value="50" oninput="atualizarSimulador()">
+        <div class="dashboard-grid">
+            <div class="box">
+                <div class="slider-group">
+                    <label style="font-weight:600;">Tecnologia Usada (Drones/Sensores): <span id="txt-tec">50</span>%</label>
+                    <input type="range" id="slide-tec" class="slider" min="0" max="100" value="50" oninput="rodarSimulador()" style="background: #fdcb6e;">
+                </div>
+                <div class="slider-group">
+                    <label style="font-weight:600;">Floresta e Mata Preservada: <span id="txt-eco">20</span>%</label>
+                    <input type="range" id="slide-eco" class="slider" min="20" max="80" value="20" oninput="rodarSimulador()" style="background: #2ecc71;">
+                </div>
+                <div style="background: var(--primary); color: white; padding: 15px; border-radius: 12px; margin-top: 15px;" id="sim-status">
+                    Calculando condições da fazenda...
+                </div>
+            </div>
 
-            <label for="preservacao">Área de Preservação Mantida: <span id="val-pres">20</span>%</label>
-            <input type="range" id="preservacao" class="slider" min="20" max="80" value="20" oninput="atualizarSimulador()">
+            <div class="box" style="border-left: 5px solid var(--secondary);">
+                <h3 style="margin-bottom: 10px;">🏅 Conquistas</h3>
+                <div class="medal-card">
+                    <div class="medal-icon" id="m1">🚜</div>
+                    <div><strong>Super Produtor</strong><br><small>Use +70% de Tecnologia</small></div>
+                </div>
+                <div class="medal-card">
+                    <div class="medal-icon" id="m2">🌳</div>
+                    <div><strong>Guardião Verde</strong><br><small>Preserve +50% de Mata</small></div>
+                </div>
+                <div class="medal-card">
+                    <div class="medal-icon" id="m3">🌟</div>
+                    <div><strong>Gênio EcoAgro</strong><br><small>Acerte todas as perguntas</small></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <div class="resultado-painel">
-                <h3>Resultado Projetado:</h3>
-                <p id="resultado-texto">Ajuste os parâmetros acima para calcular a eficiência de sua fazenda sustentável.</p>
+    <section class="section" id="pilares">
+        <h2>💡 Conhecimento em Ação</h2>
+        <div class="grid-cards">
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <span style="font-size:3rem">🤖</span>
+                        <h3>Smart Agro</h3>
+                        <p style="font-size:0.8rem; color:gray; margin-top:10px;">Toque para virar</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <h4>Inteligência Artificial</h4>
+                        <p>Evita desperdício descobrindo o ponto exato de água e adubo que a planta precisa por sensores.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <span style="font-size:3rem">🐝</span>
+                        <h3>Biodiversidade</h3>
+                        <p style="font-size:0.8rem; color:gray; margin-top:10px;">Toque para virar</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <h4>Polinizadores</h4>
+                        <p>Manter matas perto das plantações atrai abelhas que aumentam a produção de frutos naturalmente.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>© 2026 Agro Forte & Sustentável - Desenvolvido para o Futuro do Planeta</p>
+        <p>© 2026 Agro Forte & Sustentável - Projeto Escolar Agrinho</p>
     </footer>
 
     <script>
-        // Função para Alternar Temas (Foco em Produção vs Foco em Natureza)
+        // --- GERADOR DE PARTÍCULAS DE FUNDO ---
+        const emojis = ['🌱', '🍃', '☀️', '🚜', '🌸'];
+        const container = document.getElementById('particle-container');
+        for (let i = 0; i < 20; i++) {
+            let p = document.createElement('span');
+            p.className = 'particle';
+            p.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.animationDelay = Math.random() * 8 + 's';
+            p.style.animationDuration = (Math.random() * 5 + 6) + 's';
+            container.appendChild(p);
+        }
+
+        // --- SISTEMA ALTERNAR TEMA ---
         function toggleTheme() {
-            const currentTheme = document.body.getAttribute('data-theme');
-            if (currentTheme === 'eco') {
-                document.body.removeAttribute('data-theme');
-            } else {
-                document.body.setAttribute('data-theme', 'eco');
-            }
+            const body = document.body;
+            body.setAttribute('data-theme', body.getAttribute('data-theme') === 'eco' ? '' : 'eco');
         }
 
-        // Lógica do Simulador Interativo
-        function atualizarSimulador() {
-            const tec = document.getElementById('tecnologia').value;
-            const pres = document.getElementById('preservacao').value;
+        // --- LÓGICA DO MINI GAME (QUIZ) ---
+        const quizData = [
+            { q: "Qual tecnologia reduz o uso de venenos jogando insumos apenas onde há pragas?", o: ["Trator antigo", "Drones com IA", "Irrigação comum"], a: 1 },
+            { q: "O que acontece ao preservar árvores perto da plantação?", o: ["Atrai pragas perigosas", "Protege o solo e os rios", "Gasta espaço à toa"], a: 1 },
+            { q: "O segredo para o 'Agro Forte e Sustentável' é:", o: ["Apenas focar em desmatar", "Produzir sem usar nenhuma tecnologia", "Equilibrar alta produção e preservação"], a: 2 }
+        ];
 
-            document.getElementById('val-tec').innerText = tec;
-            document.getElementById('val-pres').innerText = pres;
+        let currentQuestion = 0;
+        let score = 0;
 
-            let resultado = "";
+        function loadQuiz() {
+            if(currentQuestion >= quizData.length) {
+                document.getElementById('quiz-question').innerText = "🎉 Parabéns! Você completou o desafio do jogo.";
+                document.getElementById('quiz-options').innerHTML = "<button class='quiz-btn' onclick='resetQuiz()'>Jogar Novamente</button>";
+                document.getElementById('quiz-progress').innerText = "Fim de Jogo!";
+                if(score === 30) document.getElementById('m3').classList.add('medal-acquired');
+                return;
+            }
+            let data = quizData[currentQuestion];
+            document.getElementById('quiz-progress').innerText = `Pergunta ${currentQuestion + 1} de ${quizData.length}`;
+            document.getElementById('quiz-question').innerText = data.q;
             
-            // Lógica de cruzamento de dados para gerar respostas inteligentes
-            if (tec > 70 && pres > 50) {
-                resultado = "🏆 **Fazenda Modelo!** Alta produtividade com máxima proteção ambiental. O uso de tecnologia compensa a área preservada, gerando créditos de carbono e lucro alto.";
-            } else if (tec < 40 && pres < 30) {
-                resultado = "⚠️ **Zona de Risco!** Baixa produtividade e perigo de sanções ambientais. O solo corre risco de esgotamento rápido sem tecnologia e sem mata nativa.";
-            } else if (tec > 70 && pres <= 30) {
-                resultado = "🚜 **Foco Produtivo Elevado.** Sua colheita é gigante devido à tecnologia, mas preste atenção: a falta de áreas verdes pode afetar o regime de chuvas local a longo prazo.";
-            } else if (tec <= 40 && pres > 50) {
-                resultado = "🍃 **Santuário Ecológico.** Excelente preservação ambiental, porém a produção está baixa. Implementar mais tecnologias aumentaria o rendimento sem agredir a floresta.";
+            let optionsHtml = "";
+            data.o.forEach((opt, idx) => {
+                optionsHtml += `<button class="quiz-btn" onclick="checkAnswer(${idx})">${opt}</button>`;
+            });
+            document.getElementById('quiz-options').innerHTML = optionsHtml;
+        }
+
+        function checkAnswer(idx) {
+            if(idx === quizData[currentQuestion].a) {
+                score += 10;
+                alert("Correto! 🌱 Excelente escolha.");
             } else {
-                resultado = "⚖️ **Equilíbrio em andamento.** A fazenda está no caminho certo. Pequenos ajustes em tecnologia podem disparar os lucros sem perder a responsabilidade ambiental.";
+                alert("Ops! Resposta errada. Tente prestar atenção na sustentabilidade.");
             }
-
-            document.getElementById('resultado-texto').innerHTML = resultado;
+            document.getElementById('quiz-score').innerText = score;
+            currentQuestion++;
+            loadQuiz();
         }
 
-        // Inicializa o simulador na primeira carga da página
-        window.onload = function() {
-            atualizarSimulador();
+        function resetQuiz() { currentQuestion = 0; score = 0; document.getElementById('quiz-score').innerText = 0; loadQuiz(); }
+        loadQuiz();
+
+        // --- LÓGICA DO SIMULADOR ---
+        function rodarSimulador() {
+            let tec = document.getElementById('slide-tec').value;
+            let eco = document.getElementById('slide-eco').value;
+
+            document.getElementById('txt-tec').innerText = tec;
+            document.getElementById('txt-eco').innerText = eco;
+
+            // Medalha 1: Alta tecnologia
+            if (tec >= 70) document.getElementById('m1').classList.add('medal-acquired');
+            else document.getElementById('m1').classList.remove('medal-acquired');
+
+            // Medalha 2: Alta preservação
+            if (eco >= 50) document.getElementById('m2').classList.add('medal-acquired');
+            else document.getElementById('m2').classList.remove('medal-acquired');
+
+            let txt = "";
+            if (tec >= 70 && eco >= 50) txt = "🌟 STATUS EXTRAORDINÁRIO: Sua fazenda é referência mundial! Muita tecnologia sustentando altas colheitas e florestas super vivas.";
+            else if (tec < 40 && eco < 40) txt = "❌ STATUS ALERTA: Produção baixa e a natureza sofrendo. Adicione tecnologia e pare de tirar árvores nativas.";
+            else if (tec >= 70 && eco < 40) txt = "🚜 STATUS COMERCIAL: Muito lucro financeiro rápido, mas a longo prazo a seca vai afetar suas plantas devido à falta de florestas.";
+            else txt = "⚖️ STATUS MODERADO: Equilíbrio básico alcançado. Experimente subir a tecnologia para ganhar mais eficiência!";
+
+            document.getElementById('sim-status').innerText = txt;
         }
+        rodarSimulador();
     </script>
 </body>
 </html>
+
