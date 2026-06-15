@@ -11,7 +11,6 @@
 </head>
 <body>
     <canvas id="particle-canvas"></canvas>
-
     <nav class="glass-nav">
         <div class="nav-container">
             <div class="logo">AgroEco<span>Hub</span></div>
@@ -23,7 +22,6 @@
             <button id="theme-toggle" onclick="toggleTheme()">☀️ Modo</button>
         </div>
     </nav>
-
     <header class="main-hero">
         <div class="hero-wrapper">
             <div class="hero-tag">CONEXÃO SUSTENTÁVEL</div>
@@ -35,13 +33,11 @@
             </div>
         </div>
     </header>
-
     <section id="conhecimento" class="section-header-block">
         <span class="sub-title">APRENDIZADO ATIVO</span>
         <h2 class="section-heading">Pilares da Sustentabilidade</h2>
         <p class="section-desc">Conheça as tecnologias que estão transformando o manejo de recursos naturais no campo.</p>
     </section>
-
     <div class="info-grid-modern">
         <div class="glass-card">
             <div class="card-icon">💧</div>
@@ -59,13 +55,11 @@
             <p>Fazendas solares alimentam os sistemas de irrigação e sensores conectados, zerando a pegada de carbono da produção.</p>
         </div>
     </div>
-
     <section id="arena" class="section-header-block">
         <span class="sub-title">SIMULADORES</span>
         <h2 class="section-heading">Arena de Jogos Hub</h2>
         <p class="section-desc">Gerencie recursos, tome decisões rápidas e pontue nos minijogos agroecológicos.</p>
     </section>
-
     <main class="games-layout">
         <div class="game-card">
             <div class="game-header"><span>01</span> Quiz da Sustentabilidade</div>
@@ -73,40 +67,29 @@
             <p class="game-hint" id="quiz-question">Carregando pergunta...</p>
             <div id="quiz-options" class="options-grid"></div>
         </div>
-
         <div class="game-card">
             <div class="game-header"><span>02</span> Coleta com Drone</div>
             <div class="game-stats"><span>Pontos: <span id="drone-score">0</span></span></div>
-            <div class="game-screen" id="drone-screen">
-                <div id="player-drone">🛸</div>
-            </div>
+            <div class="game-screen" id="drone-screen"><div id="player-drone">🛸</div></div>
             <div class="game-controls">
                 <button class="ctrl-btn" onclick="moveDrone('left')">⬅️ Esquerda</button>
                 <button class="ctrl-btn" onclick="moveDrone('right')">Direita ➡️</button>
             </div>
         </div>
-
         <div class="game-card">
             <div class="game-header"><span>03</span> Memória Ecológica</div>
             <div class="game-stats"><span>Pares: <span id="memo-score">0</span></span></div>
             <div class="memory-container" id="memory-board"></div>
             <button class="btn-play" style="margin-top:15px;" onclick="initMemoryGame()">Reiniciar Jogo</button>
         </div>
-
         <div class="game-card">
             <div class="game-header"><span>04</span> Irrigador Inteligente</div>
-            <div class="game-stats">
-                <span>Pontos: <span id="irr-score">0</span></span>
-                <span id="pump-status">Status: Normal</span>
-            </div>
+            <div class="game-stats"><span>Pontos: <span id="irr-score">0</span></span><span id="pump-status">Status: Normal</span></div>
             <p class="game-hint">Mantenha a umidade do solo entre 65% e 85% controlando a válvula.</p>
-            <div class="water-bar">
-                <div id="water-fill"></div>
-            </div>
+            <div class="water-bar"><div id="water-fill"></div></div>
             <div style="text-align: center; font-weight: 800; margin-bottom: 10px;" id="moisture-text">50%</div>
             <button id="pump-toggle" class="btn-pump" onclick="togglePump()">LIGAR VÁLVULA 💦</button>
         </div>
-
         <div class="game-card">
             <div class="game-header"><span>05</span> Simulador de Ecossistema</div>
             <div class="game-stats"><span>Equilíbrio: <span id="eco-score">50%</span></span></div>
@@ -123,7 +106,6 @@
             <div class="health-bar"><div id="health-fill"></div></div>
             <div id="health-msg">Estável</div>
         </div>
-
         <div class="game-card">
             <div class="game-header"><span>06</span> Carbon Clicker</div>
             <div class="game-stats"><span>Capturado: <span id="carbon-val">0</span> kg</span></div>
@@ -131,7 +113,6 @@
             <div class="click-area" id="click-zone"></div>
         </div>
     </main>
-
     <section id="mural" class="mural-section">
         <div class="mural-wrapper">
             <h2>Mural da Comunidade</h2>
@@ -143,12 +124,10 @@
             <div class="sticky-grid" id="mural-grid"></div>
         </div>
     </section>
-
     <footer class="main-footer">
         <p><strong>AgroEcoHub Pro</strong> - Tecnologia Aplicada ao Campo</p>
         <p class="footer-bottom">&copy; 2026 - Projeto Desenvolvido para o Concurso Agrinho</p>
     </footer>
-
     <script src="script.js"></script>
 </body>
 </html>
