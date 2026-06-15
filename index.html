@@ -5,54 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plataforma AgroEco Sustentável</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-    <style>
-        :root { --bg-main: #f4f7f5; --surface: #ffffff; --primary: #0f3d2e; --primary-light: #1e5c45; --accent: #ffbc00; --accent-light: #fff4d4; --danger: #eb4d4b; --success: #2bc48a; --text: #2d3748; --text-muted: #718096; --border: #e2e8f0; --radius-lg: 24px; --radius-md: 16px; --shadow: 0 10px 30px rgba(15, 61, 46, 0.04); }
-        [data-theme="dark"] { --bg-main: #0b1a15; --surface: #122620; --primary: #2bc48a; --primary-light: #3ae09e; --text: #f7fafc; --text-muted: #a0aec0; --border: #1a3a30; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; }
-        body { background-color: var(--bg-main); color: var(--text); line-height: 1.5; overflow-x: hidden; transition: background 0.4s, color 0.4s; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-        nav { position: fixed; top: 0; left: 0; width: 100%; background: rgba(var(--surface), 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); z-index: 1000; height: 80px; display: flex; align-items: center; }
-        .nav-container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; color: var(--primary); }
-        .nav-menu { display: flex; gap: 12px; list-style: none; align-items: center; }
-        .nav-link { text-decoration: none; color: var(--text); font-weight: 500; padding: 8px 16px; border-radius: var(--radius-md); }
-        .btn { background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: var(--radius-md); font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
-        .btn-accent { background: var(--accent); color: #000; }
-        .hero { padding: 160px 0 80px 0; text-align: center; background: radial-gradient(circle at top right, var(--accent-light), transparent 40%); }
-        .hero h1 { font-family: 'Syne', sans-serif; font-size: 3.5rem; font-weight: 800; color: var(--primary); margin-bottom: 24px; letter-spacing: -1px; }
-        .hero p { font-size: 1.25rem; color: var(--text-muted); max-width: 640px; margin: 0 auto 32px auto; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; margin-bottom: 40px; }
-        .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
-        .card-title { font-family: 'Syne', sans-serif; font-size: 1.5rem; color: var(--primary); margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
-        .quiz-option { width: 100%; background: var(--bg-main); border: 2px solid var(--border); padding: 16px; border-radius: var(--radius-md); text-align: left; font-size: 1rem; cursor: pointer; margin-bottom: 12px; }
-        .quiz-option.correct { background: var(--success); border-color: var(--success); color: white; }
-        .quiz-option.wrong { background: var(--danger); border-color: var(--danger); color: white; }
-        .quiz-feedback { margin-top: 16px; padding: 12px; border-radius: var(--radius-md); font-weight: 700; text-align: center; display: none; }
-        .game-viewport { width: 100%; height: 260px; background: linear-gradient(to bottom, #87ceeb, #e0f7fa); border-radius: var(--radius-md); position: relative; overflow: hidden; border: 2px solid var(--border); margin: 16px 0; }
-        .game-basket { width: 70px; height: 25px; background: #8b5a2b; border-radius: 0 0 12px 12px; position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); }
-        .game-item { position: absolute; font-size: 2rem; user-select: none; top: -40px; }
-        .game-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; gap: 12px; z-index: 10; }
-        .range-container { margin-bottom: 20px; }
-        .range-label { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 8px; }
-        .custom-range { width: 100%; height: 8px; border-radius: 4px; background: var(--border); appearance: none; outline: none; }
-        .custom-range::-webkit-slider-thumb { appearance: none; width: 24px; height: 24px; border-radius: 50%; background: var(--primary); cursor: pointer; }
-        .gauge-bar { width: 100%; height: 16px; background: var(--border); border-radius: 8px; overflow: hidden; margin-top: 12px; }
-        .gauge-fill { height: 100%; width: 50%; background: var(--success); transition: width 0.4s; }
-        .mural-input-group { display: flex; gap: 12px; margin-bottom: 24px; }
-        .mural-input { flex: 1; padding: 14px 20px; border-radius: var(--radius-md); border: 2px solid var(--border); background: var(--bg-main); color: var(--text); outline: none; }
-        .mural-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
-        .sticky-note { padding: 20px; border-radius: var(--radius-md); font-weight: 700; color: #1a202c; min-height: 120px; display: flex; align-items: center; justify-content: center; text-align: center; }
-        .tabs-header { display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 2px solid var(--border); padding-bottom: 8px; }
-        .tab-btn { background: none; border: none; padding: 8px 16px; font-weight: 700; color: var(--text-muted); cursor: pointer; border-radius: var(--radius-md); }
-        .tab-btn.active { color: var(--primary); background: var(--border); }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        .calc-output-box { background: var(--bg-main); padding: 20px; border-radius: var(--radius-md); margin-top: 16px; display: none; }
-        .indicator-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; margin-right: 8px; }
-        .leaf-particle { position: fixed; pointer-events: none; z-index: -1; opacity: 0.15; animation: falling 10s infinite linear; top: -50px; }
-        @keyframes falling { 0% { transform: translateY(0) rotate(0deg); } 100% { transform: translateY(110vh) rotate(360deg); } }
-        footer { background: var(--primary); color: white; padding: 40px 0; text-align: center; font-weight: 700; border-radius: 40px 40px 0 0; margin-top: 40px; }
-    </style>
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="leaves-container"></div>
@@ -167,69 +121,7 @@
         </div>
     </main>
     <footer><p>© 2026 AgroEcoHub — Sustentabilidade no Campo</p></footer>
-    <script>
-        function toggleMode() { const t = document.body.getAttribute('data-theme'); document.body.setAttribute('data-theme', t === 'dark' ? '' : 'dark'); }
-        const container = document.getElementById('leaves-container');
-        for (let i = 0; i < 10; i++) {
-            let l = document.createElement('span'); l.className = 'leaf-particle'; l.innerText = '🍃';
-            l.style.left = Math.random() * 100 + 'vw'; l.style.animationDelay = Math.random() * 5 + 's'; container.appendChild(l);
-        }
-        const quizItems = [
-            { q: "Vantagem da rotação de culturas?", o: ["Desgastar o solo", "Quebrar ciclos de pragas e repor nutrientes"], a: 1 },
-            { q: "O que é agricultura de precisão?", o: ["Uso de drones, IA e sensores", "Plantio manual sem dados"], a: 0 }
-        ];
-        let quizIdx = 0, currentScore = 0;
-        function drawQuizQuestion() {
-            document.getElementById('quiz-alert-box').style.display = 'none';
-            if(quizIdx >= quizItems.length) { document.getElementById('quiz-question').innerText = "🎉 Concluído!"; document.getElementById('quiz-options-grid').innerHTML = ""; return; }
-            let item = quizItems[quizIdx]; document.getElementById('quiz-progress').innerText = `Questão ${quizIdx + 1}/${quizItems.length}`; document.getElementById('quiz-question').innerText = item.q;
-            let h = ""; item.o.forEach((opt, idx) => { h += `<button class="quiz-option" onclick="evalQuiz(${idx}, this)">${opt}</button>`; });
-            document.getElementById('quiz-options-grid').innerHTML = h;
-        }
-        function evalQuiz(sel, el) {
-            let corr = quizItems[quizIdx].a; const box = document.getElementById('quiz-alert-box');
-            document.querySelectorAll('.quiz-option').forEach(b => b.disabled = true);
-            if(sel === corr) { currentScore += 10; el.classList.add('correct'); box.innerText = "Certo!"; }
-            else { el.classList.add('wrong'); box.innerText = "Incorreto!"; }
-            document.getElementById('quiz-points').innerText = currentScore; box.style.display = 'block';
-            setTimeout(() => { quizIdx++; drawQuizQuestion(); }, 1500);
-        }
-        drawQuizQuestion();
-        let pX = 50, gActive = false, colScore = 0, colTime = 30, cGLoop, cSLoop;
-        function shiftBasket(o) { if(!gActive) return; pX += o/4; pX = Math.max(5, Math.min(85, pX)); document.getElementById('basket-element').style.left = pX + '%'; }
-        function initCollectorGame() {
-            document.getElementById('game-menu').style.display = 'none'; gActive = true; colScore = 0; colTime = 30;
-            cGLoop = setInterval(() => { colTime--; document.getElementById('collector-timer').innerText = colTime; if(colTime<=0) endCollector(); }, 1000);
-            cSLoop = setInterval(() => {
-                if(!gActive) return; let it = document.createElement('div'); it.className = 'game-item'; let gd = Math.random() > 0.3;
-                it.innerText = gd ? '🌱' : '⚠️'; it.style.left = (Math.random() * 80 + 10) + '%'; document.getElementById('game-arena').appendChild(it);
-                let y = -40; let timer = setInterval(() => {
-                    if(!gActive) { clearInterval(timer); it.remove(); return; } y += 5; it.style.top = y + 'px';
-                    if(y > 210 && y < 235 && Math.abs(parseFloat(it.style.left) - pX) < 15) { colScore += gd ? 10 : -15; document.getElementById('collector-score').innerText = colScore; clearInterval(timer); it.remove(); }
-                    if(y > 260) { clearInterval(timer); it.remove(); }
-                }, 25);
-            }, 1200);
-        }
-        function endCollector() { gActive = false; clearInterval(cGLoop); clearInterval(cSLoop); const m = document.getElementById('game-menu'); m.innerHTML = `<h3>Fim!</h3><p>Pontos: ${colScore}</p><button class="btn btn-accent" onclick="initCollectorGame()">De novo</button>`; m.style.display = 'flex'; }
-        function runSim() {
-            let t = parseInt(document.getElementById('range-tech').value), b = parseInt(document.getElementById('range-bio').value);
-            document.getElementById('lbl-tech').innerText = t + "%"; document.getElementById('lbl-bio').innerText = b + "%";
-            document.getElementById('badge-1').style.opacity = t >= 75 ? "1" : "0.2"; document.getElementById('badge-2').style.opacity = b >= 55 ? "1" : "0.2";
-            let v = Math.min(100, Math.round((t * 0.5) + (b * 0.7))); document.getElementById('gauge-bar-fill').style.width = v + "%"; document.getElementById('gauge-value').innerText = v + "%";
-            document.getElementById('sim-status-message').innerText = t >= 70 && b >= 50 ? "🏆 Sinergia Perfeita no Campo!" : "⚖️ Ajuste os níveis para melhorar os resultados.";
-        }
-        runSim();
-        function switchTab(e, id) { document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active')); document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); document.getElementById(id).classList.add('active'); e.currentTarget.classList.add('active'); }
-        function evalCarbon() {
-            let d = parseFloat(document.getElementById('inp-diesel').value)||0, f = parseFloat(document.getElementById('inp-fert').value)||0, c = Math.round((d * 2.6) + (f * 3.4));
-            document.getElementById('calc-panel').style.display = "block"; document.getElementById('calc-score-val').innerText = c;
-            document.getElementById('calc-indicator').style.backgroundColor = c < 700 ? "var(--success)" : "var(--danger)";
-        }
-        function pushStickyNote() {
-            let inp = document.getElementById('mural-note-text'); let txt = inp.value.trim(); if(!txt) return;
-            let c = document.createElement('div'); c.className = "sticky-note"; c.style.backgroundColor = '#dff9fb'; c.innerText = txt;
-            document.getElementById('mural-canvas').appendChild(c); inp.value = "";
-        }
-    </script>
+
+    <script src="script.js"></script>
 </body>
 </html>
